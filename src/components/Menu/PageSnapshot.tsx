@@ -17,11 +17,9 @@ const PageSnapshotComponent: React.FC = () => {
         <UserNote note={""} />
         <UserFolders folders={folders} />
         <TagInput availableTags={availableTags} />
-        <div className="flex justify-center">
-          <Button className="mt-4 bg-indigo-500 hover:bg-indigo-700">
-            Save
-          </Button>
-        </div>
+        <Button className="justify-center mt-4 bg-indigo-500 hover:bg-indigo-700 ">
+          Save
+        </Button>
       </div>
     </>
   );
