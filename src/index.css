@@ -33,6 +33,8 @@
       --ring: 222.2 84% 4.9%;
 
       --radius: 0.5rem;
+      --custom-max-width: 100%;
+      --custom-max-height: 100vh;
     }
 
     .dark {
@@ -73,5 +75,8 @@
     body {
       @apply bg-background text-foreground;
     }
-
+    html {
+  max-width: var(--custom-max-width);
+  max-height: var(--custom-max-height);
   }
+}
