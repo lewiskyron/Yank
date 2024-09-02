@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Color-Yank",
+  "version": "1.0.0",
+  "description": "Highlights text and allows color selection",
+  "permissions": ["activeTab", "storage", "scripting", "webNavigation", "webRequest","tabs", "declarativeContent"]
+,
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["highlighter-svgrepo-com.png"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_popup": "index.html" ,
+    "default_title": "Color-Yank"
+  },
+  "icons": {
+    "16": "highlighter-svgrepo-com.png",
+    "48": "highlighter-svgrepo-com.png",
+    "128": "highlighter-svgrepo-com.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["./static/js/content.js"]
+    }
+  ]
+
+}
