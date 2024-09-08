@@ -1,23 +1,13 @@
 import "./App.css";
-import "./index.css"; // Adjust the path according to your project structure
-import PageSnapshotComponent from "./components/Menu/PageSnapshot";
-import LoginForm from "./components/auth/login";
-// import { supabase } from "./utils/supabase";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./index.css";
 
 function App() {
-
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<PageSnapshotComponent />}></Route>
-          <Route path="/auth" element={<LoginForm />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="container mx-auto w-[380px] h-[420px]">
+        <h1>Building Flashcards at the speed of light!</h1>
+      </div>
     </>
   );
 }
-
 export default App;
