@@ -1,37 +1,38 @@
 {
-    "manifest_version": 3,
-    "name": "Yank",
-    "description": "Create Flashcards at the speed of light",
-    "version": "1.0",
-    "icons": {
-      "16": "highlighter.png",
-      "48": "highlighter.png",
-      "128": "highlighter.png",
-      "256": "highlighter.png"
-    },
-    "action": {
-        "default_popup": "index.html",
-        "default_title": "Yank",
-        "default_icon":{
-          "16" : "highlighter.png",
-          "24" : "highlighter.png",
-          "32" : "highlighter.png"
-        }
-      
-
-    },
-    "content_scripts":[{
-      "js": ["src/chrome-services/utils/content.ts"],
-      "matches": ["https://*/*"]
-    }],
-    "background":{
-      "service_worker": "src/chrome-services/utils/background.ts",
-      "type": "module"
-    },
-    "web_accessible_resources": [{
-      "matches": ["https://*/*"],
-      "resources": ["assets/*"]
-   }],
-   "permissions":["bookmarks"]
-  }
-
+	"manifest_version": 3,
+	"name": "Yank",
+	"description": "Create Flashcards at the speed of light",
+	"version": "1.0",
+	"icons": {
+		"16": "highlighter.png",
+		"48": "highlighter.png",
+		"128": "highlighter.png",
+		"256": "highlighter.png"
+	},
+	"action": {
+		"default_popup": "index.html",
+		"default_title": "Yank",
+		"default_icon": {
+			"16": "highlighter.png",
+			"24": "highlighter.png",
+			"32": "highlighter.png"
+		}
+	},
+	"content_scripts": [
+		{
+			"js": ["src/chrome-services/utils/content.ts"],
+			"matches": ["https://*/*"]
+		}
+	],
+	"background": {
+		"service_worker": "src/chrome-services/utils/background.ts",
+		"type": "module"
+	},
+	"web_accessible_resources": [
+		{
+			"matches": ["https://*/*"],
+			"resources": ["assets/*"]
+		}
+	],
+	"permissions": ["bookmarks"]
+}
