@@ -1,14 +1,19 @@
+import{
+	COLOR_PICKER_ID,
+	HIGHLIGHTER_IMAGE_PATH,
+	DEFAULT_HIGHLIGHT_COLOR
+} from './constants'
 interface HighlightedText {
 	text: string;
 	color: string;
 }
-type ColorPickerElement = HTMLImageElement;
 
-const COLOR_PICKER_ID: string = "myColorPicker";
+const allHighlightedText: HighlightedText [] = [];
+type ColorPickerElement = HTMLImageElement;
 
 function createColorPicker(): ColorPickerElement {
 	const penIcon: ColorPickerElement = document.createElement("img");
-	const imagePath: string = chrome.runtime.getURL("public/highlighter.png");
+	const imagePath: string = chrome.runtime.getURL(HIGHLIGHTER_IMAGE_PATH);
 	penIcon.src = imagePath;
 	penIcon.style.width = "30px";
 	penIcon.style.height = "30px";
@@ -57,14 +62,14 @@ function applyHighlight(): void {
 		const contents = range.extractContents();
 
 		const highlightWrapper = document.createElement("span");
-		highlightWrapper.style.backgroundColor = "yellow";
+		highlightWrapper.style.backgroundColor = DEFAULT_HIGHLIGHT_COLOR;
 
 		contents.childNodes.forEach((node: Node) => {
 			console.log("Node type:", node.nodeType);
 			if (node.nodeType === Node.TEXT_NODE) {
 				console.log("Processing a text node:", node.textContent);
 				const span = document.createElement("span");
-				span.style.backgroundColor = "yellow";
+				span.style.backgroundColor = DEFAULT_HIGHLIGHT_COLOR;
 				span.textContent = node.textContent;
 				highlightWrapper.appendChild(span);
 				console.log("Text node wrapped and appended to the highlight wrapper.");
@@ -82,11 +87,10 @@ function applyHighlight(): void {
 		range.insertNode(highlightWrapper);
 		console.log("Applying highlight:", highlightWrapper);
 
-		const highlightedTexts: HighlightedText[] = [];
 		if (highlightWrapper.textContent) {
-			highlightedTexts.push({
+			allHighlightedText.push({
 				text: highlightWrapper.textContent,
-				color: "yellow",
+				color: DEFAULT_HIGHLIGHT_COLOR,
 			});
 		}
 		hideColorPicker();
