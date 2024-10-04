@@ -1,14 +1,14 @@
-import{
+import {
 	COLOR_PICKER_ID,
 	HIGHLIGHTER_IMAGE_PATH,
-	DEFAULT_HIGHLIGHT_COLOR
-} from './constants'
+	DEFAULT_HIGHLIGHT_COLOR,
+} from "./constants";
 interface HighlightedText {
 	text: string;
 	color: string;
 }
 
-const allHighlightedText: HighlightedText [] = [];
+const allHighlightedText: HighlightedText[] = [];
 type ColorPickerElement = HTMLImageElement;
 
 function createColorPicker(): ColorPickerElement {
