@@ -15,9 +15,9 @@ module.exports = {
 		extend: {
 			// Custom colors for your project
 			colors: {
-				primary: "#1D4ED8", // Blue for primary elements like buttons
-				secondary: "#64748B", // Muted grey for secondary elements
-				background: "#FCFAEE", // Light grey for background
+				primary: "#257180", // Blue for primary elements like buttons
+				secondary: "#CB6040", // Muted grey for secondary elements
+				background: "#FCFAEE",
 				foreground: "#1F2937", // Dark color for text
 				border: "#E5E7EB", // Light border color
 			},
