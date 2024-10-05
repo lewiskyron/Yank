@@ -33,7 +33,7 @@ const EditablePreview: React.FC<EditablePreviewProps> = ({ initialText }) => {
 						<h2 className="text-lg font-semibold">Editing</h2>
 						<button
 							onClick={handleSaveClick}
-							className="flex items-center rounded-md bg-secondary px-3 py-1 text-sm text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+							className="bg-secondary flex items-center rounded-md px-3 py-1 text-sm text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
 						>
 							<Save className="mr-1 h-4 w-4" />
 							Save
