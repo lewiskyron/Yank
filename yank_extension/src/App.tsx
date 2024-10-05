@@ -1,14 +1,12 @@
 import "./App.css";
 import "./index.css";
-import { Folders } from "./Mycomponents/Folders";
-import EditablePreview from "./Mycomponents/EditablePreview";
+import Home from "./Mycomponents/Home";
 
 function App() {
 	return (
 		<>
-			<div className="bg-skin-fill container mx-auto h-[420px] w-[380px]">
-				<Folders />
-				<EditablePreview initialText="Your initial text here" />
+			<div className="container mx-auto flex h-[380px] w-[380px] items-center justify-center rounded-lg">
+				<Home />
 			</div>
 		</>
 	);

@@ -51,7 +51,7 @@ export function Folders(): JSX.Element {
 	const [value, setValue] = React.useState("");
 
 	return (
-		<div className="ms-8 mt-8 grid grid-cols-2">
+		<div className="mb-2 mr-24 grid grid-cols-2">
 			<p className="text-md ml-14 mt-2 font-semibold">Save to:</p>
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
@@ -59,7 +59,7 @@ export function Folders(): JSX.Element {
 						variant="outline"
 						role="combobox"
 						aria-expanded={open}
-						className="w-[200px] justify-between"
+						className="w-[200px] justify-between bg-white"
 					>
 						{value
 							? frameworks.find((framework) => framework.value === value)?.label
@@ -67,7 +67,7 @@ export function Folders(): JSX.Element {
 						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent className="w-[200px] p-0">
+				<PopoverContent className="w-[200px] bg-white p-0">
 					<Command>
 						<CommandInput placeholder="Search framework..." />
 						<CommandList>
