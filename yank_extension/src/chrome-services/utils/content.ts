@@ -117,4 +117,3 @@ document.addEventListener("mouseup", (e: MouseEvent) => {
 		e.stopImmediatePropagation();
 	}
 });
-
