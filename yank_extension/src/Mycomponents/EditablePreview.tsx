@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { Save } from "lucide-react";
 import { MdModeEditOutline } from "react-icons/md";
 
@@ -11,6 +11,10 @@ interface EditablePreviewProps {
 const EditablePreview: React.FC<EditablePreviewProps> = ({ initialText }) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const [text, setText] = useState<string>(initialText);
+
+	useEffect(() => {
+		setText(initialText);
+	}, [initialText]);
 
 	const handleEditClick = () => {
 		setIsEditing(true);
