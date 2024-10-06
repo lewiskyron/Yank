@@ -3,12 +3,13 @@ import {
 	HIGHLIGHTER_IMAGE_PATH,
 	DEFAULT_HIGHLIGHT_COLOR,
 } from "./constants";
+
 interface HighlightedText {
 	text: string;
 	color: string;
 }
 
-const allHighlightedText: HighlightedText[] = [];
+let highlightedText: HighlightedText | null = null;
 type ColorPickerElement = HTMLImageElement;
 
 function createColorPicker(): ColorPickerElement {
@@ -72,25 +73,25 @@ function applyHighlight(): void {
 				span.style.backgroundColor = DEFAULT_HIGHLIGHT_COLOR;
 				span.textContent = node.textContent;
 				highlightWrapper.appendChild(span);
-				console.log("Text node wrapped and appended to the highlight wrapper.");
 			} else {
 				console.log("Processing a non-text node, cloning and appending.");
 				highlightWrapper.appendChild(node.cloneNode(true));
-				console.log(
-					"Non-text node cloned and appended to the highlight wrapper.",
-				);
 			}
 		});
 
 		console.log("Highlighting process completed.");
 
 		range.insertNode(highlightWrapper);
-		console.log("Applying highlight:", highlightWrapper);
 
 		if (highlightWrapper.textContent) {
-			allHighlightedText.push({
+			highlightedText = {
 				text: highlightWrapper.textContent,
 				color: DEFAULT_HIGHLIGHT_COLOR,
+			};
+
+			chrome.runtime.sendMessage({
+				action: "storeHighlightedText",
+				data: highlightedText,
 			});
 		}
 		hideColorPicker();

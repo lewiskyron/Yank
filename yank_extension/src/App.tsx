@@ -5,7 +5,7 @@ import Home from "./Mycomponents/Home";
 function App() {
 	return (
 		<>
-			<div className="container mx-auto flex h-[380px] w-[380px] items-center justify-center rounded-lg">
+			<div className="container mx-auto flex h-[360px] w-[360px] items-center justify-center rounded-lg">
 				<Home />
 			</div>
 		</>
