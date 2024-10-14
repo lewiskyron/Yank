@@ -84,7 +84,7 @@ const Home: React.FC = () => {
 			<Folders />
 			{isloading && <p>Loading...</p>}
 			{error && !isloading && <p style={{ color: "red" }}>{error}</p>}
-			{!isloading &&(
+			{!isloading && (
 				<EditablePreview initialText={responseText ? responseText : ""} />
 			)}
 			<Tags />
