@@ -25,3 +25,9 @@ dist-ssr
 
 #local env files
 *.env
+*.env.d.ts
+
+# Supabase
+.branches
+.temp
+.env
