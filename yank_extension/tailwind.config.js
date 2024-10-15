@@ -20,6 +20,8 @@ module.exports = {
 				background: "#FCFAEE",
 				foreground: "#1F2937", // Dark color for text
 				border: "#E5E7EB", // Light border color
+				customRed: "#B8001F",
+				customGreen: "#00B800",
 			},
 			// Custom font family
 			fontFamily: {

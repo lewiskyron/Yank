@@ -12,6 +12,38 @@ interface HighlightedText {
 let highlightedText: HighlightedText | null = null;
 type ColorPickerElement = HTMLImageElement;
 
+chrome.storage.sync.get("isHighlighterEnabled", (result) => {
+	const isEnabled = result.isHighlighterEnabled;
+	if (isEnabled) {
+		enableHighlighter();
+	} else {
+		disableHighlighter();
+	}
+});
+
+// Listen for changes to the highlighter state
+chrome.storage.onChanged.addListener((changes, areaName) => {
+	if (areaName === "sync" && changes.isHighlighterEnabled) {
+		const newValue = changes.isHighlighterEnabled.newValue;
+		if (newValue) {
+			enableHighlighter();
+		} else {
+			disableHighlighter();
+		}
+	}
+});
+
+function enableHighlighter(): void {
+	document.addEventListener("mouseup", handleMouseUp);
+	console.log("Highlighter enabled");
+}
+
+function disableHighlighter(): void {
+	document.removeEventListener("mouseup", handleMouseUp);
+	hideColorPicker();
+	console.log("Highlighter disabled");
+}
+
 function createColorPicker(): ColorPickerElement {
 	const penIcon: ColorPickerElement = document.createElement("img");
 	const imagePath: string = chrome.runtime.getURL(HIGHLIGHTER_IMAGE_PATH);
@@ -98,13 +130,13 @@ function applyHighlight(): void {
 	}
 }
 
-document.addEventListener("mouseup", (e: MouseEvent) => {
+function handleMouseUp(e: MouseEvent): void {
 	const selection = window.getSelection();
 	if (selection && !selection.isCollapsed) {
 		const selectedText = selection.toString();
 		console.log("Selected text:", selectedText);
-		const getRange = selection.getRangeAt(0);
-		const rect = getRange.getBoundingClientRect();
+		const range = selection.getRangeAt(0);
+		const rect = range.getBoundingClientRect();
 		const adjustedRect = {
 			top: rect.top + window.scrollY,
 			left: rect.left + window.scrollX,
@@ -116,4 +148,24 @@ document.addEventListener("mouseup", (e: MouseEvent) => {
 		showColorPicker(adjustedRect.right, adjustedRect.top);
 		e.stopImmediatePropagation();
 	}
-});
+}
+
+// document.addEventListener("mouseup", (e: MouseEvent) => {
+// 	const selection = window.getSelection();
+// 	if (selection && !selection.isCollapsed) {
+// 		const selectedText = selection.toString();
+// 		console.log("Selected text:", selectedText);
+// 		const getRange = selection.getRangeAt(0);
+// 		const rect = getRange.getBoundingClientRect();
+// 		const adjustedRect = {
+// 			top: rect.top + window.scrollY,
+// 			left: rect.left + window.scrollX,
+// 			bottom: rect.bottom + window.scrollY,
+// 			right: rect.right + window.scrollX,
+// 			width: rect.width,
+// 			height: rect.height,
+// 		};
+// 		showColorPicker(adjustedRect.right, adjustedRect.top);
+// 		e.stopImmediatePropagation();
+// 	}
+// });
