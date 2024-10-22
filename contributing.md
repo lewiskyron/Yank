@@ -12,32 +12,37 @@ To contribute to the project, follow these steps:
 4. If you've added code that should be tested, add tests.
 5. If you've changed APIs, update the documentation.
 6. Before pushing code ensure the test suite passes.
-7. For linting and formatting we have setup the project to lint and format on every save so ensure you editor has autosave on. 
+7. For linting and formatting we have setup the project to lint and format on every save so ensure you editor has autosave on.
 8. If your code does not pass the tests or lint check(you will see this in the pull request), fix the issues.
 
-## Branches 
-The naming convention for branch naming looks as follows: 
+## Branches
+
+The naming convention for branch naming looks as follows:
+
 ```
 ENG-TASK-ID/feature-name
 ```
-***Where ID is the task ID.***
+
+**_Where ID is the task ID._**
 
 Ensure to use the prefix **ENG-TASK-ID** since this is what we use to track tasks in notion for project management.</br>
 To get the prefix create the task you are working on the notion page and copy the task ID.</br>
 Here is a link to the notion page [Notion Project Management Page](https://www.notion.so/PRs-Project-tracking-99747e52760d46fdb46004d98ae0df7f)
 
-
 ## Pull Requests
-### NOTE: NOTHING SHOULD EVER BE MERGED DIRECTLY TO MAIN EXCEPT IN VERY RARE CASES! 
+
+### NOTE: NOTHING SHOULD EVER BE MERGED DIRECTLY TO MAIN EXCEPT IN VERY RARE CASES!
 
 For the PR title use the following convention:
+
 ```
 ENG-TASK-ID: Title of the PR
 ```
 
 In your pull request, make sure to include a description of what you did. Use the template provided below. For front-end changes please include screenshots as well.
-    ``` markdown
-        Title: [Brief description of the change]
+
+````markdown
+Title: [Brief description of the change]
 
         ## Description
 
@@ -60,3 +65,4 @@ In your pull request, make sure to include a description of what you did. Use th
         [If your changes have visual components, please add screenshots showing the affected pages.]
 
     ```
+````

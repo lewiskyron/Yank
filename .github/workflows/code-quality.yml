@@ -2,7 +2,7 @@ name: Code Quality Check
 
 on:
   pull_request:
-    branches: [main]  
+    branches: [main]
 
 jobs:
   lint-and-format:
@@ -14,16 +14,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '21.5.0' 
+          node-version: "21.5.0"
 
       - name: Install dependencies
-        working-directory: './yank_extension'
+        working-directory: "./yank_extension"
         run: npm ci
 
       - name: Run ESLint
-        working-directory: './yank_extension'
+        working-directory: "./yank_extension"
         run: npm run lint
 
       - name: Check Prettier formatting
-        working-directory: './yank_extension'
+        working-directory: "./yank_extension"
         run: npx prettier --check .
