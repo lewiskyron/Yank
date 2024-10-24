@@ -1,9 +1,8 @@
-import { useState} from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useRouter } from "next/navigation";
-
 
 const DropdownUser = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -12,7 +11,7 @@ const DropdownUser = () => {
 	const handleLogout = () => {
 		router.replace("auth/signin"); // Adjust the path as needed
 	};
-	
+
 	return (
 		<ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
 			<Link
@@ -149,7 +148,7 @@ const DropdownUser = () => {
 					</ul>
 					<div className="p-2.5">
 						<button
-						onClick={handleLogout}
+							onClick={handleLogout}
 							className="flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium text-dark-4 duration-300 ease-in-out hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white lg:text-base"
 						>
 							<svg

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ClickOutside from "@/components/ClickOutside";
 
-
-const DefaultSelectOption = ({ options }: any) => { 
+const DefaultSelectOption = ({ options }: any) => {
 	const [selectedOption, setSelectedOption] = useState(options[0]);
 	const [isOpen, setIsOpen] = useState(false);
 

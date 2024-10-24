@@ -19,7 +19,7 @@ const menuGroups = [
 		menuItems: [
 			{
 				label: "Stats",
-				route:"/charts/basic-chart",
+				route: "/charts/basic-chart",
 			},
 			{
 				label: "Flashcards",
@@ -31,10 +31,10 @@ const menuGroups = [
 			},
 			{
 				label: "Tags",
-				route:"/tables",
+				route: "/tables",
 			},
 			{
-			label: "Forms",
+				label: "Forms",
 				route: "#",
 				children: [
 					{ label: "Form Elements", route: "/forms/form-elements" },

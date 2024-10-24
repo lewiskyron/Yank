@@ -5,7 +5,8 @@ import ProfileBox from "@/components/ProfileBox";
 
 export const metadata: Metadata = {
 	title: "Yank",
-	description: "This is a web app where users can create and review flashcards.",
+	description:
+		"This is a web app where users can create and review flashcards.",
 };
 
 const Profile = () => {
