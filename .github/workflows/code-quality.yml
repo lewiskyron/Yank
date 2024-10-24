@@ -17,13 +17,10 @@ jobs:
           node-version: "21.5.0"
 
       - name: Install dependencies
-        working-directory: "./yank_extension"
         run: npm ci
 
       - name: Run ESLint
-        working-directory: "./yank_extension"
         run: npm run lint
 
       - name: Check Prettier formatting
-        working-directory: "./yank_extension"
         run: npx prettier --check .
