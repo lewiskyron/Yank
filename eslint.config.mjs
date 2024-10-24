@@ -7,7 +7,10 @@ export default [
 	js.configs.recommended,
 	...tseslint.configs.recommended,
 	{
-		files: ["**/*.{js,jsx,ts,tsx}"],
+		files: [
+			"yank_extension/src/**/*.{js,ts,tsx}",
+			"yank_web_app/src/**/*.{js,ts,tsx}",
+		],
 		languageOptions: {
 			ecmaVersion: 2022,
 			sourceType: "module",

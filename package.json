@@ -9,8 +9,8 @@
 		"typescript-eslint": "^8.10.0"
 	},
 	"scripts": {
-		"lint": "eslint 'yank_extension/src/**/*.{js,ts,tsx}' 'yank_web_app/src/**/*.{js,ts,tsx}' --max-warnings 0",
-		"lint:fix": "eslint 'yank_extension/src/**/*.{js,ts,tsx}' 'yank_web_app/src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"generate:types": "npx supabase gen types --lang=typescript --project-id  --schema public > ./src/types/database.types.ts"
