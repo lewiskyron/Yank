@@ -11,7 +11,7 @@ const SelectGroupThree: React.FC = () => {
 
 	return (
 		<div className="mb-5.5">
-			<label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+			<label className="text-body-sm text-dark mb-3 block font-medium dark:text-white">
 				{" "}
 				Which option best describes you?{" "}
 			</label>
@@ -23,7 +23,7 @@ const SelectGroupThree: React.FC = () => {
 						setSelectedOption(e.target.value);
 						changeTextColor();
 					}}
-					className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary ${
+					className={`border-stroke focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary relative z-20 w-full appearance-none rounded border bg-transparent px-5 py-3 outline-none transition ${
 						isOptionSelected ? "text-dark dark:text-white" : ""
 					}`}
 				>

@@ -14,9 +14,9 @@ const Buttons = () => {
 			<Breadcrumb pageName="Buttons" />
 
 			{/* <!-- Normal Button Items --> */}
-			<div className="mb-10 rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
-				<div className="border-b border-stroke px-7 py-4 dark:border-dark-3">
-					<h3 className="font-medium text-dark dark:text-white">
+			<div className="shadow-1 dark:bg-gray-dark dark:shadow-card mb-10 rounded-[10px] bg-white">
+				<div className="border-stroke dark:border-dark-3 border-b px-7 py-4">
+					<h3 className="text-dark font-medium dark:text-white">
 						Normal Button
 					</h3>
 				</div>
@@ -103,15 +103,15 @@ const Buttons = () => {
 			</div>
 
 			{/* <!-- Button With Icon Items --> */}
-			<div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
-				<div className="border-b border-stroke px-7 py-4 dark:border-dark-3">
-					<h3 className="font-medium text-dark dark:text-white">
+			<div className="shadow-1 dark:bg-gray-dark dark:shadow-card rounded-[10px] bg-white">
+				<div className="border-stroke dark:border-dark-3 border-b px-7 py-4">
+					<h3 className="text-dark font-medium dark:text-white">
 						Button With Icon
 					</h3>
 				</div>
 
 				<div className="p-4 md:p-6 xl:p-9">
-					<div className="mb-7.5 flex flex-wrap gap-5 xl:gap-7.5">
+					<div className="mb-7.5 xl:gap-7.5 flex flex-wrap gap-5">
 						<ButtonDefault
 							label="Button With Icon"
 							link="/"
@@ -201,7 +201,7 @@ const Buttons = () => {
 						</ButtonDefault>
 					</div>
 
-					<div className="mb-7.5 flex flex-wrap gap-5 xl:gap-7.5">
+					<div className="mb-7.5 xl:gap-7.5 flex flex-wrap gap-5">
 						<ButtonDefault
 							label="Button With Icon"
 							link="/"
@@ -291,7 +291,7 @@ const Buttons = () => {
 						</ButtonDefault>
 					</div>
 
-					<div className="flex flex-wrap gap-5 xl:gap-7.5">
+					<div className="xl:gap-7.5 flex flex-wrap gap-5">
 						<ButtonDefault
 							label="Button With Icon"
 							link="/"

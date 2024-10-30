@@ -2,6 +2,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import ProfileBox from "@/components/ProfileBox";
+import { createClient } from "@/api/supabase/serverClient";
 
 export const metadata: Metadata = {
 	title: "Yank",
@@ -9,16 +10,19 @@ export const metadata: Metadata = {
 		"This is a web app where users can create and review flashcards.",
 };
 
-const Profile = () => {
+export default async function Profile() {
+	const supabaseServer = createClient();
+	const {
+		data: { user },
+	} = await (await supabaseServer).auth.getUser();
+
 	return (
-		<DefaultLayout>
+		<DefaultLayout user={user}>
 			<div className="mx-auto w-full max-w-[970px]">
 				<Breadcrumb pageName="Profile" />
 
-				<ProfileBox />
+				<ProfileBox user={user} />
 			</div>
 		</DefaultLayout>
 	);
-};
-
-export default Profile;
+}

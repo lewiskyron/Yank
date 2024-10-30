@@ -1,13 +1,15 @@
 "use client";
-import React, { useState, ReactNode } from "react";
+import React, { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { type User } from "@supabase/supabase-js";
 
-export default function DefaultLayout({
-	children,
-}: {
+interface DefaultLayoutProps {
 	children: React.ReactNode;
-}) {
+	user: User | null;
+}
+
+export default function DefaultLayout({ children, user }: DefaultLayoutProps) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	return (
 		<>
@@ -20,7 +22,11 @@ export default function DefaultLayout({
 				{/* <!-- ===== Content Area Star ===== --> */}
 				<div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 					{/* <!-- ===== Header Star ===== --> */}
-					<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+					<Header
+						sidebarOpen={sidebarOpen}
+						setSidebarOpen={setSidebarOpen}
+						user={user}
+					/>
 					{/* <!-- ===== Header End ===== --> */}
 
 					{/* <!-- ===== Main Content Star ===== --> */}

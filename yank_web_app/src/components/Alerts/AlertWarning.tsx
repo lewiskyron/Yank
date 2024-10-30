@@ -3,7 +3,7 @@ import React from "react";
 const AlertWarning = () => {
 	return (
 		<>
-			<div className="flex w-full rounded-[10px] border-l-6 border-[#FFB800] bg-[#FEF5DE] px-7 py-8 dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-9">
+			<div className="border-l-6 flex w-full rounded-[10px] border-[#FFB800] bg-[#FEF5DE] px-7 py-8 md:p-9 dark:bg-[#1B1B24] dark:bg-opacity-30">
 				<div className="mr-5 flex h-9 w-9 items-center justify-center rounded-lg bg-[#FBBF24]">
 					<svg
 						width="20"

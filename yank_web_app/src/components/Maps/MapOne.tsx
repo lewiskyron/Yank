@@ -56,8 +56,8 @@ const MapOne: React.FC = () => {
 	}, []);
 
 	return (
-		<div className="col-span-12 rounded-[10px] bg-white p-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-7">
-			<h4 className="mb-7 text-body-2xlg font-bold text-dark dark:text-white">
+		<div className="p-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card col-span-12 rounded-[10px] bg-white xl:col-span-7">
+			<h4 className="text-body-2xlg text-dark mb-7 font-bold dark:text-white">
 				Region labels
 			</h4>
 			<div className="h-[422px]">

@@ -7,7 +7,7 @@ const CheckboxFive = () => {
 		<div>
 			<label
 				htmlFor="checkboxLabelFive"
-				className="flex cursor-pointer select-none items-center text-body-sm font-medium text-dark dark:text-white"
+				className="text-body-sm text-dark flex cursor-pointer select-none items-center font-medium dark:text-white"
 			>
 				<div className="relative">
 					<input
@@ -19,7 +19,7 @@ const CheckboxFive = () => {
 						}}
 					/>
 					<div
-						className={`box mr-2 flex h-5 w-5 items-center justify-center rounded-full border border-primary ${
+						className={`box border-primary mr-2 flex h-5 w-5 items-center justify-center rounded-full border ${
 							isChecked && "!border-4"
 						}`}
 					>

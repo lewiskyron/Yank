@@ -6,7 +6,7 @@
 
 @layer base {
 	body {
-		@apply relative z-1 bg-gray-2 font-satoshi text-base font-normal text-dark-5 dark:bg-[#020D1A] dark:text-dark-6;
+		@apply z-1 bg-gray-2 font-satoshi text-dark-5 dark:text-dark-6 relative text-base font-normal dark:bg-[#020D1A];
 	}
 }
 
@@ -76,7 +76,7 @@
 }
 
 .apexcharts-tooltip.apexcharts-theme-light {
-	@apply !rounded-[7px] !text-base !font-medium !text-dark !shadow-card-2 dark:!border-dark-3 dark:!bg-gray-dark dark:!text-white;
+	@apply !text-dark !shadow-card-2 dark:!border-dark-3 dark:!bg-gray-dark !rounded-[7px] !text-base !font-medium dark:!text-white;
 }
 
 .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
@@ -97,7 +97,7 @@
 }
 
 .apexcharts-xaxistooltip-bottom {
-	@apply !rounded !border-none !bg-gray !text-sm !font-medium !text-dark dark:!bg-dark dark:!text-white;
+	@apply !bg-gray !text-dark dark:!bg-dark !rounded !border-none !text-sm !font-medium dark:!text-white;
 }
 
 .apexcharts-tooltip-series-group {
@@ -134,7 +134,7 @@
 }
 
 .flatpickr-calendar {
-	@apply !p-6 !shadow-1 dark:!bg-gray-dark dark:!text-dark-6 dark:!shadow-card 2xsm:!w-auto;
+	@apply !shadow-1 dark:!bg-gray-dark dark:!text-dark-6 dark:!shadow-card 2xsm:!w-auto !p-6;
 }
 
 .flatpickr-day {
@@ -191,7 +191,7 @@ span.flatpickr-weekday,
 }
 
 .flatpickr-day.today {
-	@apply !border-none hover:!bg-gray-2 hover:!text-dark dark:hover:!bg-dark-2 dark:hover:!text-white;
+	@apply hover:!bg-gray-2 hover:!text-dark dark:hover:!bg-dark-2 !border-none dark:hover:!text-white;
 }
 
 .flatpickr-day.selected,
@@ -223,7 +223,7 @@ span.flatpickr-weekday,
 }
 
 .map-btn .jvm-zoom-btn {
-	@apply flex h-7.5 w-7.5 items-center justify-center rounded border border-stroke bg-white px-0 pb-0.5 pt-0 text-2xl leading-none text-dark-5 hover:border-primary hover:bg-primary hover:text-white dark:border-dark-3 dark:bg-dark-2 dark:text-dark-6 dark:hover:border-primary dark:hover:bg-primary dark:hover:text-white;
+	@apply h-7.5 w-7.5 border-stroke text-dark-5 hover:border-primary hover:bg-primary dark:border-dark-3 dark:bg-dark-2 dark:text-dark-6 dark:hover:border-primary dark:hover:bg-primary flex items-center justify-center rounded border bg-white px-0 pb-0.5 pt-0 text-2xl leading-none hover:text-white dark:hover:text-white;
 }
 
 .mapOne .jvm-zoom-btn {
@@ -288,7 +288,7 @@ span.flatpickr-weekday,
 .carouselOne .swiper-button-prev,
 .carouselThree .swiper-button-next,
 .carouselThree .swiper-button-prev {
-	@apply h-10 w-10 rounded-full bg-white !text-dark-5 shadow-card-2 dark:bg-dark-2 dark:!text-dark-6 sm:h-12.5 sm:w-12.5;
+	@apply !text-dark-5 shadow-card-2 dark:bg-dark-2 dark:!text-dark-6 sm:h-12.5 sm:w-12.5 h-10 w-10 rounded-full bg-white;
 }
 
 .carouselOne .swiper-button-prev,
@@ -303,7 +303,7 @@ span.flatpickr-weekday,
 
 .carouselTwo .swiper-pagination-bullet,
 .carouselThree .swiper-pagination-bullet {
-	@apply h-[5px] w-7.5 rounded-none bg-white/50;
+	@apply w-7.5 h-[5px] rounded-none bg-white/50;
 }
 
 .carouselTwo .swiper-pagination-bullet-active,
@@ -318,7 +318,7 @@ span.flatpickr-weekday,
 
 .data-stats-slider-outer .swiper-button-next,
 .data-stats-slider-outer .swiper-button-prev {
-	@apply top-1/2 h-11.5 w-11.5 rounded-full border border-stroke bg-white !text-dark drop-shadow-card dark:border-dark-3 dark:bg-dark-2 dark:!text-white;
+	@apply h-11.5 w-11.5 border-stroke !text-dark drop-shadow-card dark:border-dark-3 dark:bg-dark-2 top-1/2 rounded-full border bg-white dark:!text-white;
 }
 
 .data-stats-slider-outer .swiper-button-next.swiper-button-disabled,
@@ -335,23 +335,23 @@ span.flatpickr-weekday,
 }
 
 .data-table-common .datatable-search {
-	@apply relative !ml-0 w-100 overflow-hidden rounded;
+	@apply w-100 relative !ml-0 overflow-hidden rounded;
 }
 
 .data-table-one .datatable-search input {
-	@apply h-[46px] w-full rounded border border-stroke bg-transparent px-5 outline-none focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary;
+	@apply border-stroke focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary h-[46px] w-full rounded border bg-transparent px-5 outline-none;
 }
 
 .data-table-common .datatable-selector {
-	@apply relative z-20 inline-flex bg-transparent p-0 font-medium text-dark-5 outline-none dark:text-dark-6;
+	@apply text-dark-5 dark:text-dark-6 relative z-20 inline-flex bg-transparent p-0 font-medium outline-none;
 }
 
 .data-table-common .datatable-top {
-	@apply flex flex-col gap-4 border-b border-stroke px-7.5 py-4.5 after:hidden dark:border-dark-6 sm:flex-row-reverse sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-0;
+	@apply border-stroke px-7.5 py-4.5 dark:border-dark-6 flex flex-col gap-4 border-b after:hidden sm:flex-row-reverse sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-0;
 }
 
 .data-table-common .datatable-dropdown label {
-	@apply inline-flex items-center gap-2.5 font-medium capitalize text-dark dark:text-white;
+	@apply text-dark inline-flex items-center gap-2.5 font-medium capitalize dark:text-white;
 }
 
 .datatable-table .datatable-sorter {
@@ -373,11 +373,11 @@ span.flatpickr-weekday,
 }
 
 .data-table-common .datatable-table > thead > tr:last-child > th {
-	@apply !border-b border-stroke pb-6 dark:border-dark-3;
+	@apply border-stroke dark:border-dark-3 !border-b pb-6;
 }
 
 .data-table-common .datatable-table > thead > tr:last-child > th input {
-	@apply h-[34px] w-full rounded border border-stroke bg-transparent px-3 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary;
+	@apply border-stroke focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary h-[34px] w-full rounded border bg-transparent px-3 text-sm outline-none;
 }
 
 .data-table-common .datatable-table > tbody > tr {
@@ -389,7 +389,7 @@ span.flatpickr-weekday,
 }
 
 .data-table-common .datatable-table > tbody > tr > td {
-	@apply border-b border-stroke py-5 font-medium dark:border-dark-3;
+	@apply border-stroke dark:border-dark-3 border-b py-5 font-medium;
 }
 
 .data-table-one .datatable-bottom {
@@ -409,7 +409,7 @@ span.flatpickr-weekday,
 }
 
 .data-table-common .datatable-pagination a {
-	@apply flex h-8 w-8 cursor-pointer items-center justify-center rounded p-0 font-medium text-dark-5 hover:bg-primary hover:text-white dark:text-dark-6;
+	@apply text-dark-5 hover:bg-primary dark:text-dark-6 flex h-8 w-8 cursor-pointer items-center justify-center rounded p-0 font-medium hover:text-white;
 }
 
 .data-table-common .datatable-pagination .datatable-active a {
@@ -425,7 +425,7 @@ span.flatpickr-weekday,
 }
 
 .data-table-two .datatable-search input {
-	@apply h-11.5 w-full rounded border border-stroke bg-gray-2 px-5 outline-none focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary;
+	@apply h-11.5 border-stroke bg-gray-2 focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded border px-5 outline-none;
 }
 
 .rangeSliderCommon .noUi-target {
@@ -433,19 +433,19 @@ span.flatpickr-weekday,
 }
 
 .rangeSliderCommon .noUi-connects {
-	@apply h-1.5 rounded-full bg-stroke dark:bg-dark-3;
+	@apply bg-stroke dark:bg-dark-3 h-1.5 rounded-full;
 }
 
 .rangeSliderCommon .noUi-connect {
-	@apply h-1.5 rounded-full bg-primary;
+	@apply bg-primary h-1.5 rounded-full;
 }
 
 .rangeSliderOne .noUi-horizontal .noUi-handle {
-	@apply -top-2 h-5.5 w-5.5 rounded-full border-none bg-primary shadow-none;
+	@apply h-5.5 w-5.5 bg-primary -top-2 rounded-full border-none shadow-none;
 }
 
 .rangeSliderTwo .noUi-horizontal .noUi-handle {
-	@apply -top-2 h-6 w-6 rounded-full border-[6px] border-primary bg-white shadow-none dark:bg-dark;
+	@apply border-primary dark:bg-dark -top-2 h-6 w-6 rounded-full border-[6px] bg-white shadow-none;
 }
 
 .noUi-horizontal .noUi-handle:after,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,7 +21,7 @@ const SidebarDropdown = ({ item }: any) => {
 						>
 							{item.label}
 							{item.pro && (
-								<span className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-1.5 py-px text-[10px] font-medium leading-[17px] text-white">
+								<span className="bg-primary absolute right-3.5 top-1/2 -translate-y-1/2 rounded-md px-1.5 py-px text-[10px] font-medium leading-[17px] text-white">
 									Pro
 								</span>
 							)}
