@@ -74,19 +74,19 @@ const ChartFive: React.FC = () => {
 	};
 
 	return (
-		<div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
-			<div className="flex justify-between border-b border-stroke px-6 pb-4.5 pt-5.5 dark:border-dark-3">
+		<div className="shadow-1 dark:bg-gray-dark dark:shadow-card rounded-[10px] bg-white">
+			<div className="border-stroke pb-4.5 pt-5.5 dark:border-dark-3 flex justify-between border-b px-6">
 				<div>
-					<h2 className="mb-1.5 text-body-2xlg font-bold text-dark dark:text-white">
+					<h2 className="text-body-2xlg text-dark mb-1.5 font-bold dark:text-white">
 						Campaign Visitors
 					</h2>
 					<p className="text-body-sm font-medium">Last Campaign Performance</p>
 				</div>
 				<div>
-					<h3 className="mb-0.5 text-body-2xlg font-bold text-dark dark:text-white">
+					<h3 className="text-body-2xlg text-dark mb-0.5 font-bold dark:text-white">
 						784k
 					</h3>
-					<p className="flex items-center justify-end gap-1 text-right text-red">
+					<p className="text-red flex items-center justify-end gap-1 text-right">
 						<svg
 							className="fill-current"
 							width="14"
@@ -106,7 +106,7 @@ const ChartFive: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="px-6 pb-1 pt-7.5">
+			<div className="pt-7.5 px-6 pb-1">
 				<div id="chartFive" className="-ml-3.5">
 					<ReactApexChart
 						options={options}

@@ -38,14 +38,14 @@ const productData: Product[] = [
 
 const TableTwo = () => {
 	return (
-		<div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
+		<div className="shadow-1 dark:bg-gray-dark dark:shadow-card rounded-[10px] bg-white">
 			<div className="px-4 py-6 md:px-6 xl:px-9">
-				<h4 className="text-body-2xlg font-bold text-dark dark:text-white">
+				<h4 className="text-body-2xlg text-dark font-bold dark:text-white">
 					Top Products
 				</h4>
 			</div>
 
-			<div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-8 md:px-6 2xl:px-7.5">
+			<div className="border-stroke py-4.5 dark:border-dark-3 2xl:px-7.5 grid grid-cols-6 border-t px-4 sm:grid-cols-8 md:px-6">
 				<div className="col-span-3 flex items-center">
 					<p className="font-medium">Product Name</p>
 				</div>
@@ -65,7 +65,7 @@ const TableTwo = () => {
 
 			{productData.map((product, key) => (
 				<div
-					className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-8 md:px-6 2xl:px-7.5"
+					className="border-stroke py-4.5 dark:border-dark-3 2xl:px-7.5 grid grid-cols-6 border-t px-4 sm:grid-cols-8 md:px-6"
 					key={key}
 				>
 					<div className="col-span-3 flex items-center">
@@ -78,28 +78,28 @@ const TableTwo = () => {
 									alt="Product"
 								/>
 							</div>
-							<p className="text-body-sm font-medium text-dark dark:text-dark-6">
+							<p className="text-body-sm text-dark dark:text-dark-6 font-medium">
 								{product.name}
 							</p>
 						</div>
 					</div>
 					<div className="col-span-2 hidden items-center sm:flex">
-						<p className="text-body-sm font-medium text-dark dark:text-dark-6">
+						<p className="text-body-sm text-dark dark:text-dark-6 font-medium">
 							{product.category}
 						</p>
 					</div>
 					<div className="col-span-1 flex items-center">
-						<p className="text-body-sm font-medium text-dark dark:text-dark-6">
+						<p className="text-body-sm text-dark dark:text-dark-6 font-medium">
 							${product.price}
 						</p>
 					</div>
 					<div className="col-span-1 flex items-center">
-						<p className="text-body-sm font-medium text-dark dark:text-dark-6">
+						<p className="text-body-sm text-dark dark:text-dark-6 font-medium">
 							{product.sold}
 						</p>
 					</div>
 					<div className="col-span-1 flex items-center">
-						<p className="text-body-sm font-medium text-green">
+						<p className="text-body-sm text-green font-medium">
 							${product.profit}
 						</p>
 					</div>

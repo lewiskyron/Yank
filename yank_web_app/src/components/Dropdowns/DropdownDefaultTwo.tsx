@@ -8,7 +8,7 @@ const DropdownDefaultTwo = () => {
 		<ClickOutside onClick={() => setDropdownOpen(false)}>
 			<div className="relative flex">
 				<button
-					className="flex items-center justify-center rounded-md bg-white px-1.5 py-[5px] shadow-1 hover:text-dark dark:bg-gray-dark dark:shadow-card dark:hover:text-white"
+					className="shadow-1 hover:text-dark dark:bg-gray-dark dark:shadow-card flex items-center justify-center rounded-md bg-white px-1.5 py-[5px] dark:hover:text-white"
 					onClick={() => setDropdownOpen(!dropdownOpen)}
 				>
 					<svg
@@ -35,9 +35,9 @@ const DropdownDefaultTwo = () => {
 				</button>
 				{dropdownOpen && (
 					<div
-						className={`absolute right-0 top-full z-40 w-46.5 space-y-1.5 rounded-[7px] border border-stroke bg-white p-2 shadow-2 dark:border-dark-3 dark:bg-dark-2 dark:shadow-card`}
+						className={`w-46.5 border-stroke shadow-2 dark:border-dark-3 dark:bg-dark-2 dark:shadow-card absolute right-0 top-full z-40 space-y-1.5 rounded-[7px] border bg-white p-2`}
 					>
-						<button className="flex w-full items-center gap-2 rounded-lg px-2.5 py-[9px] text-left font-medium text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white">
+						<button className="text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 flex w-full items-center gap-2 rounded-lg px-2.5 py-[9px] text-left font-medium dark:hover:text-white">
 							<svg
 								className="fill-current"
 								width="18"
@@ -62,7 +62,7 @@ const DropdownDefaultTwo = () => {
 							</svg>
 							Edit
 						</button>
-						<button className="flex w-full items-center gap-2 rounded-lg px-2.5 py-[9px] text-left font-medium text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white">
+						<button className="text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 flex w-full items-center gap-2 rounded-lg px-2.5 py-[9px] text-left font-medium dark:hover:text-white">
 							<svg
 								className="fill-current"
 								width="18"

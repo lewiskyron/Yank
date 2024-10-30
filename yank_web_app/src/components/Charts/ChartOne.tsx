@@ -128,15 +128,15 @@ const ChartOne: React.FC = () => {
 	};
 
 	return (
-		<div className="col-span-12 rounded-[10px] bg-white px-7.5 pb-6 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-7">
+		<div className="px-7.5 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card col-span-12 rounded-[10px] bg-white pb-6 xl:col-span-7">
 			<div className="mb-3.5 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
 				<div>
-					<h4 className="text-body-2xlg font-bold text-dark dark:text-white">
+					<h4 className="text-body-2xlg text-dark font-bold dark:text-white">
 						Payments Overview
 					</h4>
 				</div>
 				<div className="flex items-center gap-2.5">
-					<p className="font-medium uppercase text-dark dark:text-dark-6">
+					<p className="text-dark dark:text-dark-6 font-medium uppercase">
 						Short by:
 					</p>
 					<DefaultSelectOption options={["Monthly", "Yearly"]} />
@@ -153,16 +153,16 @@ const ChartOne: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-col gap-2 text-center xsm:flex-row xsm:gap-0">
+			<div className="xsm:flex-row xsm:gap-0 flex flex-col gap-2 text-center">
 				<div className="border-stroke dark:border-dark-3 xsm:w-1/2 xsm:border-r">
 					<p className="font-medium">Received Amount</p>
-					<h4 className="mt-1 text-xl font-bold text-dark dark:text-white">
+					<h4 className="text-dark mt-1 text-xl font-bold dark:text-white">
 						$45,070.00
 					</h4>
 				</div>
 				<div className="xsm:w-1/2">
 					<p className="font-medium">Due Amount</p>
-					<h4 className="mt-1 text-xl font-bold text-dark dark:text-white">
+					<h4 className="text-dark mt-1 text-xl font-bold dark:text-white">
 						$32,400.00
 					</h4>
 				</div>

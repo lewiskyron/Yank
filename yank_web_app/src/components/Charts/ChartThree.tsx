@@ -65,10 +65,10 @@ const ChartThree: React.FC = () => {
 	};
 
 	return (
-		<div className="col-span-12 rounded-[10px] bg-white px-7.5 pb-7 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-5">
+		<div className="px-7.5 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card col-span-12 rounded-[10px] bg-white pb-7 xl:col-span-5">
 			<div className="mb-9 justify-between gap-4 sm:flex">
 				<div>
-					<h4 className="text-body-2xlg font-bold text-dark dark:text-white">
+					<h4 className="text-body-2xlg text-dark font-bold dark:text-white">
 						Used Devices
 					</h4>
 				</div>
@@ -85,37 +85,37 @@ const ChartThree: React.FC = () => {
 
 			<div className="mx-auto w-full max-w-[350px]">
 				<div className="-mx-7.5 flex flex-wrap items-center justify-center gap-y-2.5">
-					<div className="w-full px-7.5 sm:w-1/2">
+					<div className="px-7.5 w-full sm:w-1/2">
 						<div className="flex w-full items-center">
-							<span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue"></span>
-							<p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
+							<span className="bg-blue mr-2 block h-3 w-full max-w-3 rounded-full"></span>
+							<p className="text-body-sm text-dark dark:text-dark-6 flex w-full justify-between font-medium">
 								<span> Desktop </span>
 								<span> 65% </span>
 							</p>
 						</div>
 					</div>
-					<div className="w-full px-7.5 sm:w-1/2">
+					<div className="px-7.5 w-full sm:w-1/2">
 						<div className="flex w-full items-center">
-							<span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light"></span>
-							<p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
+							<span className="bg-blue-light mr-2 block h-3 w-full max-w-3 rounded-full"></span>
+							<p className="text-body-sm text-dark dark:text-dark-6 flex w-full justify-between font-medium">
 								<span> Tablet </span>
 								<span> 34% </span>
 							</p>
 						</div>
 					</div>
-					<div className="w-full px-7.5 sm:w-1/2">
+					<div className="px-7.5 w-full sm:w-1/2">
 						<div className="flex w-full items-center">
-							<span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light-2"></span>
-							<p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
+							<span className="bg-blue-light-2 mr-2 block h-3 w-full max-w-3 rounded-full"></span>
+							<p className="text-body-sm text-dark dark:text-dark-6 flex w-full justify-between font-medium">
 								<span> Mobile </span>
 								<span> 45% </span>
 							</p>
 						</div>
 					</div>
-					<div className="w-full px-7.5 sm:w-1/2">
+					<div className="px-7.5 w-full sm:w-1/2">
 						<div className="flex w-full items-center">
-							<span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light-3"></span>
-							<p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
+							<span className="bg-blue-light-3 mr-2 block h-3 w-full max-w-3 rounded-full"></span>
+							<p className="text-body-sm text-dark dark:text-dark-6 flex w-full justify-between font-medium">
 								<span> Unknown </span>
 								<span> 12% </span>
 							</p>

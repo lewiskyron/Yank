@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import { createClient } from "@/api/supabase/serverClient";
 
 export const metadata: Metadata = {
 	title:
@@ -10,10 +11,15 @@ export const metadata: Metadata = {
 	description: "This is Next.js Home page for NextAdmin Dashboard Kit",
 };
 
-export default function Home() {
+export default async function Home() {
+	const supabaseServer = createClient();
+	const {
+		data: { user },
+	} = await (await supabaseServer).auth.getUser();
+
 	return (
 		<>
-			<DefaultLayout>
+			<DefaultLayout user={user}>
 				<Breadcrumb pageName="Flashcards" />
 				<ECommerce />
 			</DefaultLayout>

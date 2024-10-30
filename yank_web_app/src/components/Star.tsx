@@ -9,7 +9,7 @@ const Star: React.FC = () => {
 
 	return (
 		<svg
-			className={`hover:fill-[#FFD02C] dark:hover:hover:fill-[#FFD02C] ${stared ? "fill-[#FFD02C] " : "fill-[#DFE3F0] dark:fill-[#E5E7EE]/70"}`}
+			className={`hover:fill-[#FFD02C] dark:hover:hover:fill-[#FFD02C] ${stared ? "fill-[#FFD02C]" : "fill-[#DFE3F0] dark:fill-[#E5E7EE]/70"}`}
 			onClick={toggleStar}
 			width="24"
 			height="24"

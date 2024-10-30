@@ -7,24 +7,24 @@ const SettingBoxes = () => {
 		<>
 			<div className="grid grid-cols-5 gap-8">
 				<div className="col-span-5 xl:col-span-3">
-					<div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card">
-						<div className="border-b border-stroke px-7 py-4 dark:border-dark-3">
-							<h3 className="font-medium text-dark dark:text-white">
+					<div className="border-stroke shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card rounded-[10px] border bg-white">
+						<div className="border-stroke dark:border-dark-3 border-b px-7 py-4">
+							<h3 className="text-dark font-medium dark:text-white">
 								Personal Information
 							</h3>
 						</div>
 						<div className="p-7">
 							<form>
-								<div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+								<div className="mb-5.5 gap-5.5 flex flex-col sm:flex-row">
 									<div className="w-full sm:w-1/2">
 										<label
-											className="mb-3 block text-body-sm font-medium text-dark dark:text-white"
+											className="text-body-sm text-dark mb-3 block font-medium dark:text-white"
 											htmlFor="fullName"
 										>
 											Full Name
 										</label>
 										<div className="relative">
-											<span className="absolute left-4.5 top-1/2 -translate-y-1/2">
+											<span className="left-4.5 absolute top-1/2 -translate-y-1/2">
 												<svg
 													className="fill-current"
 													width="20"
@@ -48,7 +48,7 @@ const SettingBoxes = () => {
 												</svg>
 											</span>
 											<input
-												className="w-full rounded-[7px] border-[1.5px] border-stroke bg-white py-2.5 pl-12.5 pr-4.5 text-dark focus:border-primary focus-visible:outline-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+												className="border-stroke pl-12.5 pr-4.5 text-dark focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded-[7px] border-[1.5px] bg-white py-2.5 focus-visible:outline-none dark:text-white"
 												type="text"
 												name="fullName"
 												id="fullName"
@@ -60,13 +60,13 @@ const SettingBoxes = () => {
 
 									<div className="w-full sm:w-1/2">
 										<label
-											className="mb-3 block text-body-sm font-medium text-dark dark:text-white"
+											className="text-body-sm text-dark mb-3 block font-medium dark:text-white"
 											htmlFor="phoneNumber"
 										>
 											Phone Number
 										</label>
 										<div className="relative">
-											<span className="absolute left-4.5 top-1/2 -translate-y-1/2">
+											<span className="left-4.5 absolute top-1/2 -translate-y-1/2">
 												<svg
 													className="fill-current"
 													width="20"
@@ -85,7 +85,7 @@ const SettingBoxes = () => {
 											</span>
 
 											<input
-												className="w-full rounded-[7px] border-[1.5px] border-stroke bg-white py-2.5 pl-12.5 pr-4.5 text-dark focus:border-primary focus-visible:outline-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+												className="border-stroke pl-12.5 pr-4.5 text-dark focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded-[7px] border-[1.5px] bg-white py-2.5 focus-visible:outline-none dark:text-white"
 												type="text"
 												name="phoneNumber"
 												id="phoneNumber"
@@ -98,13 +98,13 @@ const SettingBoxes = () => {
 
 								<div className="mb-5.5">
 									<label
-										className="mb-3 block text-body-sm font-medium text-dark dark:text-white"
+										className="text-body-sm text-dark mb-3 block font-medium dark:text-white"
 										htmlFor="emailAddress"
 									>
 										Email Address
 									</label>
 									<div className="relative">
-										<span className="absolute left-4.5 top-1/2 -translate-y-1/2">
+										<span className="left-4.5 absolute top-1/2 -translate-y-1/2">
 											<svg
 												className="fill-current"
 												width="20"
@@ -122,7 +122,7 @@ const SettingBoxes = () => {
 											</svg>
 										</span>
 										<input
-											className="w-full rounded-[7px] border-[1.5px] border-stroke bg-white py-2.5 pl-12.5 pr-4.5 text-dark focus:border-primary focus-visible:outline-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+											className="border-stroke pl-12.5 pr-4.5 text-dark focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded-[7px] border-[1.5px] bg-white py-2.5 focus-visible:outline-none dark:text-white"
 											type="email"
 											name="emailAddress"
 											id="emailAddress"
@@ -134,13 +134,13 @@ const SettingBoxes = () => {
 
 								<div className="mb-5.5">
 									<label
-										className="mb-3 block text-body-sm font-medium text-dark dark:text-white"
+										className="text-body-sm text-dark mb-3 block font-medium dark:text-white"
 										htmlFor="Username"
 									>
 										Username
 									</label>
 									<div className="relative">
-										<span className="absolute left-4.5 top-1/2 -translate-y-1/2">
+										<span className="left-4.5 absolute top-1/2 -translate-y-1/2">
 											<svg
 												className="fill-current"
 												width="20"
@@ -164,7 +164,7 @@ const SettingBoxes = () => {
 											</svg>
 										</span>
 										<input
-											className="w-full rounded-[7px] border-[1.5px] border-stroke bg-white py-2.5 pl-12.5 pr-4.5 text-dark focus:border-primary focus-visible:outline-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+											className="border-stroke pl-12.5 pr-4.5 text-dark focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded-[7px] border-[1.5px] bg-white py-2.5 focus-visible:outline-none dark:text-white"
 											type="text"
 											name="Username"
 											id="Username"
@@ -176,7 +176,7 @@ const SettingBoxes = () => {
 
 								<div className="mb-5.5">
 									<label
-										className="mb-3 block text-body-sm font-medium text-dark dark:text-white"
+										className="text-body-sm text-dark mb-3 block font-medium dark:text-white"
 										htmlFor="bio"
 									>
 										BIO
@@ -201,7 +201,7 @@ const SettingBoxes = () => {
 										</span>
 
 										<textarea
-											className="w-full rounded-[7px] border-[1.5px] border-stroke bg-white py-5 pl-13 pr-5 text-dark focus:border-primary focus-visible:outline-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+											className="border-stroke pl-13 text-dark focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded-[7px] border-[1.5px] bg-white py-5 pr-5 focus-visible:outline-none dark:text-white"
 											name="bio"
 											id="bio"
 											rows={6}
@@ -214,13 +214,13 @@ const SettingBoxes = () => {
 
 								<div className="flex justify-end gap-3">
 									<button
-										className="flex justify-center rounded-[7px] border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white"
+										className="border-stroke text-dark hover:shadow-1 dark:border-dark-3 flex justify-center rounded-[7px] border px-6 py-[7px] font-medium dark:text-white"
 										type="submit"
 									>
 										Cancel
 									</button>
 									<button
-										className="flex justify-center rounded-[7px] bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90"
+										className="bg-primary text-gray-2 flex justify-center rounded-[7px] px-6 py-[7px] font-medium hover:bg-opacity-90"
 										type="submit"
 									>
 										Save
@@ -231,9 +231,9 @@ const SettingBoxes = () => {
 					</div>
 				</div>
 				<div className="col-span-5 xl:col-span-2">
-					<div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card">
-						<div className="border-b border-stroke px-7 py-4 dark:border-dark-3">
-							<h3 className="font-medium text-dark dark:text-white">
+					<div className="border-stroke shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card rounded-[10px] border bg-white">
+						<div className="border-stroke dark:border-dark-3 border-b px-7 py-4">
+							<h3 className="text-dark font-medium dark:text-white">
 								Your Photo
 							</h3>
 						</div>
@@ -252,7 +252,7 @@ const SettingBoxes = () => {
 										</>
 									</div>
 									<div>
-										<span className="mb-1.5 font-medium text-dark dark:text-white">
+										<span className="text-dark mb-1.5 font-medium dark:text-white">
 											Edit your photo
 										</span>
 										<span className="flex gap-3">
@@ -268,7 +268,7 @@ const SettingBoxes = () => {
 
 								<div
 									id="FileUpload"
-									className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded-xl border border-dashed border-gray-4 bg-gray-2 px-4 py-4 hover:border-primary dark:border-dark-3 dark:bg-dark-2 dark:hover:border-primary sm:py-7.5"
+									className="mb-5.5 border-gray-4 bg-gray-2 hover:border-primary dark:border-dark-3 dark:bg-dark-2 dark:hover:border-primary sm:py-7.5 relative block w-full cursor-pointer appearance-none rounded-xl border border-dashed px-4 py-4"
 								>
 									<input
 										type="file"
@@ -278,7 +278,7 @@ const SettingBoxes = () => {
 										className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
 									/>
 									<div className="flex flex-col items-center justify-center">
-										<span className="flex h-13.5 w-13.5 items-center justify-center rounded-full border border-stroke bg-white dark:border-dark-3 dark:bg-gray-dark">
+										<span className="h-13.5 w-13.5 border-stroke dark:border-dark-3 dark:bg-gray-dark flex items-center justify-center rounded-full border bg-white">
 											<svg
 												width="20"
 												height="20"
@@ -296,11 +296,11 @@ const SettingBoxes = () => {
 												/>
 											</svg>
 										</span>
-										<p className="mt-2.5 text-body-sm font-medium">
+										<p className="text-body-sm mt-2.5 font-medium">
 											<span className="text-primary">Click to upload</span> or
 											drag and drop
 										</p>
-										<p className="mt-1 text-body-xs">
+										<p className="text-body-xs mt-1">
 											SVG, PNG, JPG or GIF (max, 800 X 800px)
 										</p>
 									</div>
@@ -308,13 +308,13 @@ const SettingBoxes = () => {
 
 								<div className="flex justify-end gap-3">
 									<button
-										className="flex justify-center rounded-[7px] border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white"
+										className="border-stroke text-dark hover:shadow-1 dark:border-dark-3 flex justify-center rounded-[7px] border px-6 py-[7px] font-medium dark:text-white"
 										type="submit"
 									>
 										Cancel
 									</button>
 									<button
-										className="flex items-center justify-center rounded-[7px] bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90"
+										className="bg-primary text-gray-2 flex items-center justify-center rounded-[7px] px-6 py-[7px] font-medium hover:bg-opacity-90"
 										type="submit"
 									>
 										Save

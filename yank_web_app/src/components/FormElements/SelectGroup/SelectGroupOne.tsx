@@ -11,18 +11,18 @@ const SelectGroupOne: React.FC = () => {
 
 	return (
 		<div className="mb-4.5">
-			<label className="mb-3 block text-body-sm text-dark dark:text-white">
+			<label className="text-body-sm text-dark mb-3 block dark:text-white">
 				Subject
 			</label>
 
-			<div className="relative z-20 bg-transparent dark:bg-dark-2">
+			<div className="dark:bg-dark-2 relative z-20 bg-transparent">
 				<select
 					value={selectedOption}
 					onChange={(e) => {
 						setSelectedOption(e.target.value);
 						changeTextColor();
 					}}
-					className={`relative z-20 w-full appearance-none rounded-[7px] border border-stroke bg-transparent px-5.5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary ${
+					className={`border-stroke px-5.5 focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary relative z-20 w-full appearance-none rounded-[7px] border bg-transparent py-3 outline-none transition ${
 						isOptionSelected ? "text-dark dark:text-white" : ""
 					}`}
 				>

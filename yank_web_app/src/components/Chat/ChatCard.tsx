@@ -53,8 +53,8 @@ const chatData: Chat[] = [
 
 const ChatCard = () => {
 	return (
-		<div className="col-span-12 rounded-[10px] bg-white py-6 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-4">
-			<h4 className="mb-5.5 px-7.5 text-body-2xlg font-bold text-dark dark:text-white">
+		<div className="shadow-1 dark:bg-gray-dark dark:shadow-card col-span-12 rounded-[10px] bg-white py-6 xl:col-span-4">
+			<h4 className="mb-5.5 px-7.5 text-body-2xlg text-dark font-bold dark:text-white">
 				Chats
 			</h4>
 
@@ -62,7 +62,7 @@ const ChatCard = () => {
 				{chatData.map((chat, key) => (
 					<Link
 						href="/"
-						className="flex items-center gap-4.5 px-7.5 py-3 hover:bg-gray-1 dark:hover:bg-dark-2"
+						className="gap-4.5 px-7.5 hover:bg-gray-1 dark:hover:bg-dark-2 flex items-center py-3"
 						key={key}
 					>
 						<div className="relative h-14 w-14 rounded-full">
@@ -77,7 +77,7 @@ const ChatCard = () => {
 								}}
 							/>
 							<span
-								className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white dark:border-dark-2 ${
+								className={`dark:border-dark-2 absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white ${
 									chat.active === true
 										? "bg-green"
 										: chat.active === false
@@ -89,12 +89,12 @@ const ChatCard = () => {
 
 						<div className="flex flex-1 items-center justify-between">
 							<div>
-								<h5 className="font-medium text-dark dark:text-white">
+								<h5 className="text-dark font-medium dark:text-white">
 									{chat.name}
 								</h5>
 								<p>
 									<span
-										className={`mb-px text-body-sm font-medium ${chat.seen ? "dark:text-dark-3" : "text-dark-3 dark:text-dark-6"}`}
+										className={`text-body-sm mb-px font-medium ${chat.seen ? "dark:text-dark-3" : "text-dark-3 dark:text-dark-6"}`}
 									>
 										{chat.text}
 									</span>
@@ -102,7 +102,7 @@ const ChatCard = () => {
 								</p>
 							</div>
 							{chat.textCount !== 0 && (
-								<div className="flex items-center justify-center rounded-full bg-primary px-2 py-0.5">
+								<div className="bg-primary flex items-center justify-center rounded-full px-2 py-0.5">
 									<span className="text-sm font-medium text-white">
 										{" "}
 										{chat.textCount}

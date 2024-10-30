@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import SidebarDropdown from "@/components/Sidebar/SidebarDropdown";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SidebarItem = ({ item, pageName, setPageName }: any) => {
 	const handleClick = () => {
 		const updatedPageName =
@@ -20,12 +21,12 @@ const SidebarItem = ({ item, pageName, setPageName }: any) => {
 					{item.icon}
 					{item.label}
 					{item.message && (
-						<span className="absolute right-11.5 top-1/2 -translate-y-1/2 rounded-full bg-red-light-6 px-1.5 py-px text-[10px] font-medium leading-[17px] text-red">
+						<span className="right-11.5 bg-red-light-6 text-red absolute top-1/2 -translate-y-1/2 rounded-full px-1.5 py-px text-[10px] font-medium leading-[17px]">
 							{item.message}
 						</span>
 					)}
 					{item.pro && (
-						<span className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-1.5 py-px text-[10px] font-medium leading-[17px] text-white">
+						<span className="bg-primary absolute right-3.5 top-1/2 -translate-y-1/2 rounded-md px-1.5 py-px text-[10px] font-medium leading-[17px] text-white">
 							Pro
 						</span>
 					)}

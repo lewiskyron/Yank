@@ -11,11 +11,11 @@ const SelectGroupTwo: React.FC = () => {
 
 	return (
 		<div>
-			<label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+			<label className="text-body-sm text-dark mb-3 block font-medium dark:text-white">
 				Select Country
 			</label>
 
-			<div className="relative z-20 rounded-[7px] bg-white dark:bg-dark-2">
+			<div className="dark:bg-dark-2 relative z-20 rounded-[7px] bg-white">
 				<span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
 					<svg
 						width="20"
@@ -44,7 +44,7 @@ const SelectGroupTwo: React.FC = () => {
 						setSelectedOption(e.target.value);
 						changeTextColor();
 					}}
-					className={`relative z-10 w-full appearance-none rounded-[7px] border border-stroke bg-transparent px-11.5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 ${
+					className={`border-stroke px-11.5 focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 relative z-10 w-full appearance-none rounded-[7px] border bg-transparent py-3 outline-none transition ${
 						isOptionSelected ? "text-dark dark:text-white" : ""
 					}`}
 				>
@@ -59,7 +59,7 @@ const SelectGroupTwo: React.FC = () => {
 					</option>
 				</select>
 
-				<span className="absolute right-4.5 top-1/2 z-10 -translate-y-1/2 text-dark-4 dark:text-dark-6">
+				<span className="right-4.5 text-dark-4 dark:text-dark-6 absolute top-1/2 z-10 -translate-y-1/2">
 					<svg
 						className="fill-current"
 						width="20"

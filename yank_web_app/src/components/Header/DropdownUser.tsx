@@ -1,16 +1,55 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useRouter } from "next/navigation";
+import supabaseClient from "@/api/supabase/supabaseClient";
+import { type User } from "@supabase/supabase-js";
 
-const DropdownUser = () => {
+interface UserDropDownProps {
+	user: User | null;
+}
+
+const DropdownUser = ({ user }: UserDropDownProps) => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const router = useRouter();
+	const [firstName, setFirstName] = useState<string | null>("John");
+	const [lastName, setLastName] = useState<string | null>("Doe");
 
-	const handleLogout = () => {
-		router.replace("auth/signin"); // Adjust the path as needed
+	const handleLogout = async () => {
+		const { error } = await supabaseClient.auth.signOut({ scope: "global" });
+
+		if (error) {
+			throw error;
+		}
+		router.replace("auth/login");
 	};
+
+	const getProfile = useCallback(async () => {
+		try {
+			const { data, error, status } = await supabaseClient
+				.from("profiles")
+				.select("*")
+				.eq("id", user?.id)
+				.single();
+
+			if (error && status !== 406) {
+				throw error;
+			}
+
+			if (data) {
+				setFirstName(data.first_name);
+				setLastName(data.last_name);
+			}
+		} catch (err) {
+			alert("Something went wrong while attempting to fetch user data");
+			console.error(err);
+		}
+	}, [user, supabaseClient]);
+
+	useEffect(() => {
+		getProfile();
+	}, [user, getProfile]);
 
 	return (
 		<ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -33,9 +72,7 @@ const DropdownUser = () => {
 					/>
 				</span>
 
-				<span className="flex items-center gap-2 font-medium text-dark dark:text-dark-6">
-					<span className="hidden lg:block">Kyron Nyoro</span>
-
+				<span className="text-dark dark:text-dark-6 flex items-center gap-2 font-medium">
 					<svg
 						className={`fill-current duration-200 ease-in ${dropdownOpen && "rotate-180"}`}
 						width="20"
@@ -57,9 +94,9 @@ const DropdownUser = () => {
 			{/* <!-- Dropdown Star --> */}
 			{dropdownOpen && (
 				<div
-					className={`absolute right-0 mt-7.5 flex w-[280px] flex-col rounded-lg border-[0.5px] border-stroke bg-white shadow-default dark:border-dark-3 dark:bg-gray-dark`}
+					className={`mt-7.5 border-stroke shadow-default dark:border-dark-3 dark:bg-gray-dark absolute right-0 flex w-[280px] flex-col rounded-lg border-[0.5px] bg-white`}
 				>
-					<div className="flex items-center gap-2.5 px-5 pb-5.5 pt-3.5">
+					<div className="pb-5.5 flex items-center gap-2.5 px-5 pt-3.5">
 						<span className="relative block h-12 w-12 rounded-full">
 							<Image
 								width={112}
@@ -73,23 +110,23 @@ const DropdownUser = () => {
 								className="overflow-hidden rounded-full"
 							/>
 
-							<span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green dark:border-gray-dark"></span>
+							<span className="bg-green dark:border-gray-dark absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white"></span>
 						</span>
 
 						<span className="block">
-							<span className="block font-medium text-dark dark:text-white">
-								Kyron Nyoro
+							<span className="text-dark block font-medium dark:text-white">
+								{firstName} {lastName}
 							</span>
-							<span className="block font-medium text-dark-5 dark:text-dark-6">
-								kyronnyoro.m@gmail.com
+							<span className="text-dark-5 dark:text-dark-6 block font-medium">
+								{user?.email}
 							</span>
 						</span>
 					</div>
-					<ul className="flex flex-col gap-1 border-y-[0.5px] border-stroke p-2.5 dark:border-dark-3">
+					<ul className="border-stroke dark:border-dark-3 flex flex-col gap-1 border-y-[0.5px] p-2.5">
 						<li>
 							<Link
 								href="/profile"
-								className="flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium text-dark-4 duration-300 ease-in-out hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white lg:text-base"
+								className="text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium duration-300 ease-in-out lg:text-base dark:hover:text-white"
 							>
 								<svg
 									className="fill-current"
@@ -119,7 +156,7 @@ const DropdownUser = () => {
 						<li>
 							<Link
 								href="/pages/settings"
-								className="flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium text-dark-4 duration-300 ease-in-out hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white lg:text-base"
+								className="text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium duration-300 ease-in-out lg:text-base dark:hover:text-white"
 							>
 								<svg
 									className="fill-current"
@@ -149,7 +186,7 @@ const DropdownUser = () => {
 					<div className="p-2.5">
 						<button
 							onClick={handleLogout}
-							className="flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium text-dark-4 duration-300 ease-in-out hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white lg:text-base"
+							className="text-dark-4 hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium duration-300 ease-in-out lg:text-base dark:hover:text-white"
 						>
 							<svg
 								className="fill-current"

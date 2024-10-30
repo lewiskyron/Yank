@@ -18,17 +18,17 @@ const DatePickerTwo = () => {
 
 	return (
 		<div>
-			<label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+			<label className="text-body-sm text-dark mb-3 block font-medium dark:text-white">
 				Select date
 			</label>
 			<div className="relative">
 				<input
-					className="form-datepicker w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary"
+					className="form-datepicker border-stroke focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary w-full rounded-[7px] border-[1.5px] bg-transparent px-5 py-3 font-normal outline-none transition"
 					placeholder="mm/dd/yyyy"
 					data-class="flatpickr-right"
 				/>
 
-				<div className="pointer-events-none absolute inset-0 left-auto right-5 flex items-center text-dark-4 dark:text-dark-6">
+				<div className="text-dark-4 dark:text-dark-6 pointer-events-none absolute inset-0 left-auto right-5 flex items-center">
 					<svg
 						className="fill-current"
 						width="20"
