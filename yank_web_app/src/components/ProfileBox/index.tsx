@@ -17,6 +17,7 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 	// const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [successMessage, setSuccessMessage] = useState<string | null>(null);
+	const [successTrigger, setSuccessTrigger] = useState<number>(0);
 
 	const getProfile = useCallback(async () => {
 		try {
@@ -27,7 +28,6 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 				.single();
 
 			if (error && status !== 406) {
-				console.log(error);
 				throw error;
 			}
 
@@ -37,8 +37,8 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 				// setAvatarUrl(data.avatar_url);
 			}
 		} catch (error) {
+			throw error;
 			alert("Error loading user data");
-			console.log(error);
 		}
 	}, [user, supabaseClient]);
 
@@ -47,8 +47,6 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 	}, [user, getProfile]);
 
 	const updateProfile = async () => {
-		console.log(user?.id);
-
 		const updates = {
 			id: user?.id,
 			first_name: firstName,
@@ -61,12 +59,12 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 				.upsert(updates)
 				.eq("id", user?.id);
 
-			console.log(error);
 			if (error) {
 				setErrorMessage(error.message);
 			} else {
 				setErrorMessage(null);
 				setSuccessMessage("Updated Profile Successfuly!");
+				setSuccessTrigger((prev) => prev + 1);
 				getProfile();
 			}
 		} catch (err) {
@@ -77,7 +75,9 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 	return (
 		<>
 			{errorMessage && <AlertError errors={[errorMessage]} />}
-			{successMessage && <AlertSuccess messages={[successMessage]} />}
+			{successMessage && (
+				<AlertSuccess messages={[successMessage]} trigger={successTrigger} />
+			)}
 			<div className="shadow-1 dark:bg-gray-dark dark:shadow-card overflow-hidden rounded-[10px] bg-white">
 				{/* Cover Image Section */}
 				<div className="h-35 md:h-65 relative z-20">
