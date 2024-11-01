@@ -25,6 +25,7 @@ export default function SigninWithPassword({ mode }: SigninWithPasswordProps) {
 	});
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [successMessage, setSuccessMessage] = useState<string | null>(null);
+	const [successTrigger, setSuccessTrigger] = useState<number>(0);
 
 	//toggle password visibility
 	const togglePasswordVisibility = () => {
@@ -112,6 +113,7 @@ export default function SigninWithPassword({ mode }: SigninWithPasswordProps) {
 					setSuccessMessage(
 						"We are almost there. Check your email to validate account",
 					);
+					setSuccessTrigger((prev) => prev + 1);
 				}
 			}
 		}
@@ -122,7 +124,9 @@ export default function SigninWithPassword({ mode }: SigninWithPasswordProps) {
 			{/* Render AlertError component if there's an error */}
 			{errorMessage && <AlertError errors={[errorMessage]} />}
 			{/* Render AlertSuccess component if there's a success message */}
-			{successMessage && <AlertSuccess messages={[successMessage]} />}
+			{successMessage && (
+				<AlertSuccess messages={[successMessage]} trigger={successTrigger} />
+			)}
 			<form onSubmit={handleSubmit}>
 				{/* Email Field */}
 				<div className="mb-4">
