@@ -1,7 +1,6 @@
-"use client";
-
-import * as React from "react";
+import { useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { Database } from "../types/database.types";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,36 +18,20 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface Framework {
-	value: string;
-	label: string;
-}
-const frameworks: Framework[] = [
-	{
-		value: "next.js",
-		label: "Next.js",
-	},
-	{
-		value: "sveltekit",
-		label: "SvelteKit",
-	},
-	{
-		value: "nuxt.js",
-		label: "Nuxt.js",
-	},
-	{
-		value: "remix",
-		label: "Remix",
-	},
-	{
-		value: "astro",
-		label: "Astro",
-	},
-];
+type FolderType = Database["public"]["Tables"]["Folders"]["Row"];
 
-export function Folders(): JSX.Element {
-	const [open, setOpen] = React.useState(false);
-	const [value, setValue] = React.useState("");
+interface FoldersProps {
+	folders: FolderType[];
+	selectedFolder: number | null;
+	onSelectFolder: (folderId: number | null) => void;
+}
+
+export function Folders({
+	folders,
+	selectedFolder,
+	onSelectFolder,
+}: FoldersProps): JSX.Element {
+	const [open, setOpen] = useState(false);
 
 	return (
 		<div className="mb-2 mr-24 grid grid-cols-2">
@@ -61,34 +44,40 @@ export function Folders(): JSX.Element {
 						aria-expanded={open}
 						className="w-[200px] justify-between bg-white"
 					>
-						{value
-							? frameworks.find((framework) => framework.value === value)?.label
+						{selectedFolder !== null
+							? folders.find((folder) => folder.folder_id === selectedFolder)
+									?.folder_name
 							: "Select folder..."}
 						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="w-[200px] bg-white p-0">
 					<Command>
-						<CommandInput placeholder="Search framework..." />
+						<CommandInput placeholder="Search folders..." />
 						<CommandList>
-							<CommandEmpty>No framework found.</CommandEmpty>
+							<CommandEmpty>No folder found.</CommandEmpty>
 							<CommandGroup>
-								{frameworks.map((framework) => (
+								{folders.map((folder) => (
 									<CommandItem
-										key={framework.value}
-										value={framework.value}
+										key={folder.folder_id}
+										value={folder.folder_id.toString()}
 										onSelect={(currentValue) => {
-											setValue(currentValue === value ? "" : currentValue);
+											const selectedId = parseInt(currentValue);
+											onSelectFolder(
+												selectedId === selectedFolder ? null : selectedId,
+											);
 											setOpen(false);
 										}}
 									>
 										<Check
 											className={cn(
 												"mr-2 h-4 w-4",
-												value === framework.value ? "opacity-100" : "opacity-0",
+												selectedFolder === folder.folder_id
+													? "opacity-100"
+													: "opacity-0",
 											)}
 										/>
-										{framework.label}
+										{folder.folder_name}
 									</CommandItem>
 								))}
 							</CommandGroup>
