@@ -1,4 +1,4 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
+import Flashcards from "@/components/Dashboard/Flashcards";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import React from "react";
@@ -21,7 +21,7 @@ export default async function Home() {
 		<>
 			<DefaultLayout user={user}>
 				<Breadcrumb pageName="Flashcards" />
-				<ECommerce />
+				<Flashcards user={user} />
 			</DefaultLayout>
 		</>
 	);

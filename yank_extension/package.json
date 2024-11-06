@@ -10,7 +10,7 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"preview": "vite preview",
-		"generate:types": "npx supabase gen types --lang=typescript --project-id  --schema public > ./src/types/database.types.ts"
+		"generate:types": "npx supabase gen types --lang=typescript --project-id wbxueysawskymjeqmssw  --schema public > ./src/types/database.types.ts"
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.1",
