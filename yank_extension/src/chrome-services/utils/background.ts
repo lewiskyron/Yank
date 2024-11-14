@@ -1,4 +1,5 @@
-console.log("Background script loaded");
+import supabase from "@/api/supabaseClient";
+import { User } from "@supabase/supabase-js";
 
 interface HighlightedText {
 	text: string;
@@ -16,10 +17,18 @@ interface GetPreviewResponse {
 	message?: string;
 }
 
+interface AuthResponse{
+	status: number;
+	user?: User | null;
+	error?: string;
+}
+
 type Message =
 	| { action: "storeHighlightedText"; data: HighlightedText }
 	| { action: "getHighlightedText" }
-	| { action: "toggleHighlighter"; data: boolean };
+	| { action: "toggleHighlighter"; data: boolean }
+	| {action: "signInWithGoogle"};
+
 
 let storedHighlightedText: HighlightedText | null = null;
 // Listen for installation event
@@ -31,8 +40,13 @@ chrome.runtime.onMessage.addListener(
 	(
 		message: Message,
 		_sender: chrome.runtime.MessageSender,
-		sendResponse: (response?: GeneralResponse | GetPreviewResponse) => void,
-	): void => {
+		sendResponse: (response?: GeneralResponse | GetPreviewResponse | AuthResponse) => void,
+	): boolean | void => {
+
+		if(message.action === "signInWithGoogle"){
+			handleGoogleSignIn(sendResponse);
+			return true;
+		}
 		if (message.action == "storeHighlightedText") {
 			storedHighlightedText = message.data;
 			if (storedHighlightedText != null) {
@@ -77,6 +91,65 @@ function toggleHighlighterSwitch(newState: boolean) {
 			);
 		}
 	});
+}
+
+const manifest = chrome.runtime.getManifest();
+async function handleGoogleSignIn(sendResponse: (response: AuthResponse) => void) {
+  try {
+    const url = new URL('https://accounts.google.com/o/oauth2/auth');
+    url.searchParams.set('client_id', manifest.oauth2!.client_id);
+	console.log(manifest.oauth2!.client_id);
+    url.searchParams.set('response_type', 'id_token');
+    url.searchParams.set('access_type', 'offline');
+    url.searchParams.set('redirect_uri', `https://${chrome.runtime.id}.chromiumapp.org`);
+	console.log(chrome.identity.getRedirectURL());
+
+	if(manifest.oauth2?.scopes){
+		url.searchParams.set('scope', manifest.oauth2?.scopes.join(' '));
+	}
+
+    chrome.identity.launchWebAuthFlow(
+      {
+        url: url.href,
+        interactive: true,
+      },
+      async (redirectedTo) => {
+        if (chrome.runtime.lastError || !redirectedTo) {
+          sendResponse({ 
+            status: 500, 
+            error: chrome.runtime.lastError?.message || 'Authentication failed' 
+          });
+          return;
+        }
+
+        try {
+          const url = new URL(redirectedTo);
+          const params = new URLSearchParams(url.hash.replace('#', ''))
+          const idToken = params.get('id_token');
+
+          if (!idToken) {
+            throw new Error('No ID token received');
+          }
+
+          const { data, error } = await supabase.auth.signInWithIdToken({
+            provider: 'google',
+            token: idToken,
+          });
+
+          if (error) throw error;
+          
+          sendResponse({ status: 200, user: data.user });
+        } catch (error) {
+          sendResponse({ 
+            status: 500, 
+            error: error instanceof Error ? error.message : 'Failed to sign in with ID token' 
+          });
+        }
+      }
+    );
+  } catch (error) {
+    sendResponse({ status: 500, error: (error as Error).message });
+  }
 }
 
 // Export an empty object to make this a module
