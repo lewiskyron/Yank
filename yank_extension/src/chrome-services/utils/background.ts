@@ -96,7 +96,7 @@ function toggleHighlighterSwitch(newState: boolean) {
 }
 
 // add tab listener when background script starts
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener((tabId, changeInfo,) => {
 	if (!isSigningIn) return;
 	if (changeInfo.url) {
 		const url = new URL(changeInfo.url);
