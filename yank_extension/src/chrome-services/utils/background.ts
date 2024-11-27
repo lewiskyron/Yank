@@ -27,10 +27,12 @@ type Message =
 	| { action: "storeHighlightedText"; data: HighlightedText }
 	| { action: "getHighlightedText" }
 	| { action: "toggleHighlighter"; data: boolean }
-	| {action: "signInWithGoogle"};
+	| {action: "signInWithGoogle"}
+	| { action: "SET_SIGNING_IN"; value: boolean };
 
 
 let storedHighlightedText: HighlightedText | null = null;
+let isSigningIn = false;
 // Listen for installation event
 chrome.runtime.onInstalled.addListener(() => {
 	console.log("Extension installed");
@@ -43,9 +45,10 @@ chrome.runtime.onMessage.addListener(
 		sendResponse: (response?: GeneralResponse | GetPreviewResponse | AuthResponse) => void,
 	): boolean | void => {
 
-		if(message.action === "signInWithGoogle"){
-			handleGoogleSignIn(sendResponse);
-			return true;
+		if(message.action === "SET_SIGNING_IN"){
+			isSigningIn = message.value;
+    		sendResponse({ status: 200, message: "Success" });
+			
 		}
 		if (message.action == "storeHighlightedText") {
 			storedHighlightedText = message.data;
@@ -93,64 +96,92 @@ function toggleHighlighterSwitch(newState: boolean) {
 	});
 }
 
-const manifest = chrome.runtime.getManifest();
-async function handleGoogleSignIn(sendResponse: (response: AuthResponse) => void) {
-  try {
-    const url = new URL('https://accounts.google.com/o/oauth2/auth');
-    url.searchParams.set('client_id', manifest.oauth2!.client_id);
-	console.log(manifest.oauth2!.client_id);
-    url.searchParams.set('response_type', 'id_token');
-    url.searchParams.set('access_type', 'offline');
-    url.searchParams.set('redirect_uri', `https://${chrome.runtime.id}.chromiumapp.org`);
-	console.log(chrome.identity.getRedirectURL());
 
-	if(manifest.oauth2?.scopes){
-		url.searchParams.set('scope', manifest.oauth2?.scopes.join(' '));
+
+
+// add tab listener when background script starts
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (!isSigningIn) return;
+  if (changeInfo.url) {
+	const url = new URL(changeInfo.url);
+	const params = new URLSearchParams(url.hash.substring(1));
+
+	// Validate required parameters
+	const accessToken = params.get("access_token");
+	const refreshToken = params.get("refresh_token");
+
+	if (accessToken && refreshToken) {	
+		finishUserOAuth(changeInfo.url);
+	} else {
+		console.error("URL is missing required tokens:", {
+			accessToken,
+			refreshToken,
+		});
 	}
+  }
+});
 
-    chrome.identity.launchWebAuthFlow(
-      {
-        url: url.href,
-        interactive: true,
-      },
-      async (redirectedTo) => {
-        if (chrome.runtime.lastError || !redirectedTo) {
-          sendResponse({ 
-            status: 500, 
-            error: chrome.runtime.lastError?.message || 'Authentication failed' 
-          });
-          return;
-        }
+/**
+ * Method used to finish OAuth callback for a user authentication.
+ */
+async function finishUserOAuth(url: string) {
+  try {
+    console.log(`Handling user OAuth callback...`);
+    // Extract tokens from the URL hash
+    const hashMap = parseUrlHash(url);
+    const access_token = hashMap.get("access_token");
+    const refresh_token = hashMap.get("refresh_token");
+    if (!access_token || !refresh_token) {
+      throw new Error("No Supabase tokens found in URL hash");
+    }
 
-        try {
-          const url = new URL(redirectedTo);
-          const params = new URLSearchParams(url.hash.replace('#', ''))
-          const idToken = params.get('id_token');
+    // Set Supabase session
+    const { data, error } = await supabase.auth.setSession({
+      access_token,
+      refresh_token,
+    });
+    if (error) throw error;
 
-          if (!idToken) {
-            throw new Error('No ID token received');
-          }
+    // Persist session to storage
+	console.log("This is the Session data:", data.session);
+    await chrome.storage.local.set({ session: data.session });
 
-          const { data, error } = await supabase.auth.signInWithIdToken({
-            provider: 'google',
-            token: idToken,
-          });
 
-          if (error) throw error;
-          
-          sendResponse({ status: 200, user: data.user });
-        } catch (error) {
-          sendResponse({ 
-            status: 500, 
-            error: error instanceof Error ? error.message : 'Failed to sign in with ID token' 
-          });
-        }
-      }
-    );
+	// sending the sessino to the OAuth Context 
+	chrome.runtime.sendMessage(
+		{action: "SET_SESSION", value: data.session},
+		(response) => {
+			if (chrome.runtime.lastError) {
+				console.error(
+					"Error sending message to OAuth Context:",
+					chrome.runtime.lastError,
+				);
+			} else {
+				console.log("OAuth Context acknowledged sign-in state:", response);
+			}
+		},
+	)
+
+    // Redirect to post-auth page
+    chrome.tabs.update({ url: "http://localhost:3000/#/login" });
+    console.log("OAuth callback handled successfully");
   } catch (error) {
-    sendResponse({ status: 500, error: (error as Error).message });
+    console.error("Error handling OAuth callback:", error);
   }
 }
 
-// Export an empty object to make this a module
+/**
+ * Helper method used to parse the hash of a redirect URL.
+ */
+function parseUrlHash(url: string) {
+  const hashParts = new URL(url).hash.slice(1).split('&');
+  const hashMap = new Map(
+    hashParts.map((part) => {
+      const [name, value] = part.split('=');
+      return [name, value];
+    })
+  );
+
+  return hashMap;
+}
 export {};
