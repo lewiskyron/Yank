@@ -13,9 +13,7 @@ interface AuthContextType {
 }
 
 const OAuthContext = createContext<AuthContextType | undefined>(undefined);
-type Message = 
-  | { action: "AUTH_SUCCESS"; session: Session | null }
-  
+type Message = { action: "AUTH_SUCCESS"; session: Session | null };
 
 interface GeneralResponse {
 	status: number;
@@ -102,8 +100,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		// Open the OAuth URL in a new tab
 		await chrome.tabs.create({ url: data.url as string });
 	};
-
-	
 
 	const signOut = async () => {
 		const { error } = await supabase.auth.signOut();
