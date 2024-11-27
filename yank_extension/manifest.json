@@ -34,5 +34,11 @@
 			"resources": ["assets/*"]
 		}
 	],
-	"permissions": ["bookmarks", "storage"]
+
+	"permissions": ["bookmarks", "storage", "identity", "tabs"],
+	"oauth2": {
+		"client_id": "967346537744-g8vumrkstbab9ggondnuq1g4qmpepd11.apps.googleusercontent.com",
+		"scopes": ["openid", "email", "profile"]
+	},
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVyHSQOzNrfBu68Ty/kopP03RsimJh2ClNF9BSqvP+A1VaUhDA3mdaLVpex4y5Oj+z1vqrnrAWhWylHNtcpwislR5W66lQeILWTemsAuWB9FDpMCJiVruJlGaDn33ZKUZ3OP62OpHGCN+SjKlZUmu5B/DPIIJmSzB4QSElwZv13Ze/xI/t/oNZGk13dT0n4Hx9+bCGEFDrx7lSiX4kiuGyE0/0ZEC6BrSiGRUKoobgcUPG0hipQe3s0EF6wMRrVA032NOqHd8nrO5QyAZxpcmCf++G1Ky2L6ICrdusCgAFNxHmM/91pmz9CjuWo4Ln1lAMYM0PYnscdNdwurIFI8fwIDAQAB"
 }

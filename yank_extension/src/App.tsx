@@ -3,6 +3,10 @@ import "./index.css";
 import Home from "./Mycomponents/Home";
 import { Switch } from "@/components/ui/switch";
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./Mycomponents/LoginPage";
+import ProtectedRoute from "./Mycomponents/ProtectedRoute";
+import { AuthProvider } from "./contexts/OAuthContext";
 
 function App() {
 	const [isHighlighterEnabled, setIsHighlighterEnabled] = useState<
@@ -27,15 +31,29 @@ function App() {
 
 	return (
 		<>
-			<div className="container mx-auto flex h-[360px] w-[360px] items-center justify-center rounded-lg">
-				<div className="absolute right-2 top-2">
-					<Switch
-						checked={isHighlighterEnabled}
-						onCheckedChange={handleCheckedChange}
-					/>
+			<AuthProvider>
+				<div className="container mx-auto flex h-[360px] w-[360px] items-center justify-center rounded-lg">
+					<Routes>
+						<Route
+							path="/"
+							element={
+								<>
+									<ProtectedRoute>
+										<div className="absolute right-2 top-2">
+											<Switch
+												checked={isHighlighterEnabled}
+												onCheckedChange={handleCheckedChange}
+											/>
+										</div>
+										<Home />
+									</ProtectedRoute>
+								</>
+							}
+						/>
+						<Route path="/login" element={<LoginPage />} />
+					</Routes>
 				</div>
-				<Home />
-			</div>
+			</AuthProvider>
 		</>
 	);
 }
