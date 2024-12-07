@@ -34,7 +34,7 @@ export function Folders({
 	const [open, setOpen] = useState(false);
 
 	return (
-		<div className="mb-2 mr-24 grid grid-cols-2">
+		<div className="mb-2 mr-24 mt-6 grid grid-cols-2">
 			<p className="text-md ml-14 mt-2 font-semibold">Save to:</p>
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>

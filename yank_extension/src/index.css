@@ -32,4 +32,18 @@
 		margin: 0;
 		padding: 0;
 	}
+	.toaster,
+	.toast {
+		border: none; /* Remove the global border */
+	}
+}
+
+@layer components {
+	.toast[data-type="success"] {
+		@apply text-customGreen bg-white;
+	}
+
+	.toast[data-type="error"] {
+		@apply text-customRed bg-white;
+	}
 }
