@@ -8,6 +8,8 @@ import supabase from "@/api/supabaseClient";
 import { Database } from "../types/database.types";
 import { useAuth } from "@/contexts/OAuthContext";
 import type { CachedResponses } from "@/chrome-services/utils/background";
+import { toast } from "sonner";
+import Navigation from "./navigation";
 
 type FolderType = Database["public"]["Tables"]["Folders"]["Row"];
 const REFRESH_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -16,7 +18,6 @@ const Home: React.FC = () => {
 	const { user } = useAuth();
 	const [selectedText, setSelectedText] = useState<string | null>(null);
 	const [responseText, setResponseText] = useState<string>("");
-	// const [previousText, setPreviousText] = useState<string | null>(null);
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [folders, setFolders] = useState<FolderType[]>([]);
@@ -201,18 +202,24 @@ const Home: React.FC = () => {
 					text: responseText,
 					user_id: user?.id,
 				});
-				alert("Flashcard saved successfully!");
-			} catch (error) {
-				console.error("Error saving flashcard:", error);
+				toast.success("Flashcard saved successfully!");
+				setTimeout(() => {
+					toast.dismiss();
+				}, 3000);
+				setResponseText("");
+				setSelectedText("");
+			} catch {
 				setError("Failed to save flashcard.");
+				toast.error("Failed to save flashcard.");
 			}
 		} else {
-			alert("Please select a folder to save the flashcard.");
+			toast.error("Please select a folder to save the flashcard.");
 		}
 	};
 
 	return (
 		<div className="flex flex-col">
+			<Navigation />
 			<Folders
 				folders={folders}
 				selectedFolder={selectedFolder}
@@ -221,7 +228,7 @@ const Home: React.FC = () => {
 			{isLoading && <p>Loading...</p>}
 			{error && !isLoading && <p style={{ color: "red" }}>{error}</p>}
 			{!isLoading && <EditablePreview initialText={responseText || ""} />}
-			<Button className="mt-2 text-white" onClick={handleSave}>
+			<Button className="mt-4 text-white" onClick={handleSave}>
 				Save
 			</Button>
 		</div>
