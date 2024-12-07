@@ -170,7 +170,6 @@ const Home: React.FC = () => {
 
 				// Add to fetchedTexts and update chrome.storage.local
 				setFetchedTexts(updatedFetchedTexts);
-				
 			} catch (err) {
 				if (axios.isAxiosError(err)) {
 					const axiosError = err as AxiosError;
