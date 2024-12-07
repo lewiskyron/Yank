@@ -35,7 +35,83 @@ let isSigningIn = false;
 // Listen for installation event
 chrome.runtime.onInstalled.addListener(() => {
 	console.log("Extension installed");
+})
+
+chrome.runtime.onInstalled.addListener(() => {
+  // Initialize `fetchedTexts` and `lastCleanedAt` if not already present
+  chrome.storage.local.get(["fetchedTexts", "lastCleanedAt"], (result) => {
+    if (!result.fetched?.length) {
+      chrome.storage.local.set({ fetchedTexts: [] }, () => {
+        console.log("Initialized fetchedTexts to an empty array.");
+      });
+    }
+
+    console.log(result.lastCleanedAt);
+    if (!result.lastCleanedAt) {
+      const now = Date.now();
+      chrome.storage.local.set({ lastCleanedAt: now }, () => {
+        console.log("Initialized lastCleanedAt to:", new Date(now).toISOString());
+      });
+    }
+  });
+
+  // Initialize `cachedResponses` if not already present
+  chrome.storage.local.get("cachedResponses", (result) => {
+    if (!result.cachedResponses || typeof result.cachedResponses !== "object") {
+      chrome.storage.local.set({ cachedResponses: {} }, () => {
+        console.log("Initialized cachedResponses as an empty dictionary.");
+      });
+    } else {
+      // Perform cleanup of cached responses
+      cleanupCachedResponses(result.cachedResponses);
+    }
+  });
+
+  console.log("Extension installed");
+
+  // Set up periodic cleanup every 12 hours
+  setupPeriodicCleanup();
 });
+
+
+export  type CachedResponses = Record<string, { text: string; timestamp: number }>;	
+
+// Cleanup function to remove cached items older than 48 hours
+const cleanupCachedResponses = (cachedResponses: CachedResponses): void => {
+  const now = Date.now();
+  const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
+  const updatedCachedResponses: CachedResponses = {};
+
+  // Iterate through cachedResponses and keep only fresh items
+  for (const [key, value] of Object.entries(cachedResponses)) {
+    if (value.timestamp && now - value.timestamp <= FORTY_EIGHT_HOURS) {
+      updatedCachedResponses[key] = value;
+    }
+  }
+
+  // Update storage with the cleaned responses
+  chrome.storage.local.set({ cachedResponses: updatedCachedResponses }, () => {
+    console.log("Cleaned up old cached responses.");
+  });
+};
+
+// Function to set up periodic cleanup
+const setupPeriodicCleanup = () => {
+  const TWELVE_HOURS = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
+
+  // Use setInterval to trigger cleanup every 12 hours
+  setInterval(() => {
+    chrome.storage.local.get("cachedResponses", (result) => {
+      if (result.cachedResponses && typeof result.cachedResponses === "object") {
+        cleanupCachedResponses(result.cachedResponses);
+      }
+    });
+  }, TWELVE_HOURS);
+
+  console.log("Periodic cleanup set up to run every 12 hours.");
+};
+
+
 
 chrome.runtime.onMessage.addListener(
 	(

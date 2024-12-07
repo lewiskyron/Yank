@@ -14,12 +14,12 @@ interface ProfileBoxProps {
 export default function ProfileBox({ user }: ProfileBoxProps) {
 	const [firstName, setFirstName] = useState<string | null>("John");
 	const [lastName, setLastName] = useState<string | null>("Doe");
-	// const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [successMessage, setSuccessMessage] = useState<string | null>(null);
 	const [successTrigger, setSuccessTrigger] = useState<number>(0);
 
 	const getProfile = useCallback(async () => {
+		// this is to get user data so
 		try {
 			const { data, error, status } = await supabaseClient
 				.from("profiles")
