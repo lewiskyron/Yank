@@ -73,10 +73,9 @@ const Home: React.FC = () => {
 						setSelectedText(newSelectedText);
 					}
 				} else {
-					setError("Failed to retrieve highlighted text.");
+					setError("Failed to retrieve highlighted text. Please highlight again.");
 				}
-			} catch (err) {
-				console.error("Error in chrome.runtime.sendMessage:", err);
+			} catch {
 				setError("An error occurred while fetching highlighted text.");
 			}
 		};
