@@ -22,6 +22,8 @@ const config: Config = {
 			colors: {
 				current: "currentColor",
 				transparent: "transparent",
+				customRed: "#B8001F",
+				customGreen: "#00B800",
 				white: "#FFFFFF",
 				primary: {
 					DEFAULT: "hsl(var(--primary))",

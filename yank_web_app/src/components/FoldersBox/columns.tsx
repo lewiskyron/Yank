@@ -47,6 +47,7 @@ export const columns: ColumnDef<Folder>[] = [
 		header: "Practice",
 		cell: ({ row }) => {
 			const folderId = row.original.folder_id;
+			const folderName = row.original.folder_name;
 			const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
 			const [isDialogOpen, setIsDialogOpen] = useState(false);
 			const [error, setError] = useState<string | null>(null);
@@ -72,6 +73,7 @@ export const columns: ColumnDef<Folder>[] = [
 						flashcards={flashcards}
 						isOpen={isDialogOpen}
 						onOpenChange={setIsDialogOpen}
+						folderName={folderName}
 					/>
 				</div>
 			);

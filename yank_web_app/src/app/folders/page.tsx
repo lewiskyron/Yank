@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import FoldersBox from "@/components/FoldersBox";
 import { createClient } from "@/api/supabase/serverClient";
+import CreateFolder from "@/components/FoldersBox/CreateFolder";
 
 export const metadata: Metadata = {
 	title: "Yank Folders Page | Yank - Yank Dashboard",
@@ -18,7 +19,10 @@ export default async function Folders() {
 	return (
 		<>
 			<DefaultLayout user={user}>
-				<Breadcrumb pageName="Folders" />
+				<div className="mb-6 flex items-center justify-between">
+					<Breadcrumb pageName="Folders" />
+					<CreateFolder user={user} />
+				</div>
 				<FoldersBox user={user} />
 			</DefaultLayout>
 		</>
