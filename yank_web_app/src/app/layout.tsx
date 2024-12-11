@@ -5,6 +5,7 @@ import "@/css/satoshi.css";
 import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
 	children,
@@ -24,6 +25,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body suppressHydrationWarning={true}>
 				{loading ? <Loader /> : children}
+				<Toaster />
 			</body>
 		</html>
 	);

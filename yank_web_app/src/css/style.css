@@ -80,6 +80,25 @@
 }
 
 @layer components {
+	.toast[data-type="success"] {
+		@apply text-customGreen border-customGreen border bg-white shadow-lg;
+	}
+
+	.toast[data-type="error"] {
+		@apply text-customRed border-customRed border bg-white shadow-lg;
+	}
+
+	.toast-description {
+		@apply text-gray-500;
+	}
+
+	.toast-action-button {
+		@apply bg-primary text-white;
+	}
+
+	.toast-cancel-button {
+		@apply bg-gray-200 text-gray-600;
+	}
 }
 
 @layer utilities {
