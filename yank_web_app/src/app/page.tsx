@@ -1,4 +1,3 @@
-import Flashcards from "@/components/Dashboard/Flashcards";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import React from "react";
@@ -20,8 +19,7 @@ export default async function Home() {
 	return (
 		<>
 			<DefaultLayout user={user}>
-				<Breadcrumb pageName="Flashcards" />
-				<Flashcards user={user} />
+				<Breadcrumb pageName="Home" />
 			</DefaultLayout>
 		</>
 	);
