@@ -26,7 +26,10 @@ const Home: React.FC = () => {
 
 	// Fetch folders from the database
 	const fetchFolders = async () => {
-		const { data, error } = await supabase.from("Folders").select();
+		const { data, error } = await supabase
+			.from("Folders")
+			.select()
+			.eq("user_id", user?.id);
 		if (data) {
 			setFolders(data);
 		} else {
@@ -198,17 +201,23 @@ const Home: React.FC = () => {
 	const handleSave = async () => {
 		if (selectedFolder && responseText) {
 			try {
-				await supabase.from("Flashcard").insert({
+				const { error } = await supabase.from("Flashcard").insert({
 					folder_id: selectedFolder,
 					text: responseText,
 					user_id: user?.id,
 				});
-				toast.success("Flashcard saved successfully!");
-				setTimeout(() => {
-					toast.dismiss();
-				}, 3000);
-				setResponseText("");
-				setSelectedText("");
+				if (error) {
+					console.log(error);
+					setError("Failed to save flashcard.{error.message}");
+					toast.error("Failed to save flashcard.");
+				} else {
+					toast.success("Flashcard saved successfully!");
+					setTimeout(() => {
+						toast.dismiss();
+					}, 3000);
+					setResponseText("");
+					setSelectedText("");
+				}
 			} catch {
 				setError("Failed to save flashcard.");
 				toast.error("Failed to save flashcard.");

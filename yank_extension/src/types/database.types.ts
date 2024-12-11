@@ -46,18 +46,21 @@ export type Database = {
 					created_at: string;
 					folder_id: number;
 					folder_name: string;
+					no_of_flashcards: number | null;
 					user_id: string;
 				};
 				Insert: {
 					created_at?: string;
 					folder_id?: number;
 					folder_name: string;
+					no_of_flashcards?: number | null;
 					user_id?: string;
 				};
 				Update: {
 					created_at?: string;
 					folder_id?: number;
 					folder_name?: string;
+					no_of_flashcards?: number | null;
 					user_id?: string;
 				};
 				Relationships: [];
