@@ -6,6 +6,7 @@ import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({
 	children,
@@ -28,6 +29,7 @@ export default function RootLayout({
 					children
 				)}
 				<Toaster />
+				<SpeedInsights />
 			</body>
 		</html>
 	);
