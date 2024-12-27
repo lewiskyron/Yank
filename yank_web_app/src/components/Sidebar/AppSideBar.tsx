@@ -16,7 +16,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarHeader,
-	SidebarFooter
+	SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
 	DropdownMenu,
@@ -123,7 +123,7 @@ export function AppSidebar(props: { user: User | null }) {
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton asChild>
-							<Link href="/PrivatePolicy">
+							<Link href="/PrivacyPolicy">
 								<Shield className="h-4 w-4" color="#4F46E5" />
 								<span>Privacy Policy</span>
 							</Link>
