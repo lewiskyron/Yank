@@ -4,6 +4,7 @@ import { type User } from "@supabase/supabase-js";
 import Link from "next/link";
 import supabaseClient from "@/api/supabase/supabaseClient";
 import { useRouter } from "next/navigation";
+import { Shield } from "lucide-react";
 
 import {
 	Sidebar,
@@ -15,6 +16,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarHeader,
+	SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
 	DropdownMenu,
@@ -117,6 +119,18 @@ export function AppSidebar(props: { user: User | null }) {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
+			<SidebarFooter>
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<SidebarMenuButton asChild>
+							<Link href="/PrivacyPolicy">
+								<Shield className="h-4 w-4" color="#4F46E5" />
+								<span>Privacy Policy</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
+				</SidebarMenu>
+			</SidebarFooter>
 		</Sidebar>
 	);
 }
