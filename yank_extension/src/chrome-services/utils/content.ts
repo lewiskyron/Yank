@@ -149,23 +149,3 @@ function handleMouseUp(e: MouseEvent): void {
 		e.stopImmediatePropagation();
 	}
 }
-
-// document.addEventListener("mouseup", (e: MouseEvent) => {
-// 	const selection = window.getSelection();
-// 	if (selection && !selection.isCollapsed) {
-// 		const selectedText = selection.toString();
-// 		console.log("Selected text:", selectedText);
-// 		const getRange = selection.getRangeAt(0);
-// 		const rect = getRange.getBoundingClientRect();
-// 		const adjustedRect = {
-// 			top: rect.top + window.scrollY,
-// 			left: rect.left + window.scrollX,
-// 			bottom: rect.bottom + window.scrollY,
-// 			right: rect.right + window.scrollX,
-// 			width: rect.width,
-// 			height: rect.height,
-// 		};
-// 		showColorPicker(adjustedRect.right, adjustedRect.top);
-// 		e.stopImmediatePropagation();
-// 	}
-// });

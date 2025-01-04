@@ -6,6 +6,11 @@ export async function updateSession(request: NextRequest) {
 		return NextResponse.next();
 	}
 
+	// this page is for post-authentication from the web extnesion. Thus, we don't want to check for the session since its set in the extension.
+	if (request.nextUrl.pathname === "/auth/post-login") {
+		return NextResponse.next();
+	}
+
 	let supabaseResponse = NextResponse.next({
 		request,
 	});
