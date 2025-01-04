@@ -9,8 +9,8 @@ import highlighterIcon from "../post-login/highlighter.png";
 
 export function PostLoginSuccess() {
 	return (
-		<div className="from-background to-background p-4 relative flex min-h-screen w-full items-center justify-center bg-gradient-to-b via-purple-200/50 via-50%">
-			<div className="pointer-events-none fixed inset-0 z-50 ">
+		<div className="from-background to-background relative flex min-h-screen w-full items-center justify-center bg-gradient-to-b via-purple-200/50 via-50% p-4">
+			<div className="pointer-events-none fixed inset-0 z-50">
 				<Lottie
 					animationData={confettiAnimation}
 					loop={false}
