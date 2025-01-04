@@ -240,7 +240,7 @@ async function finishUserOAuth(url: string) {
 		);
 
 		// Redirect to post-auth page
-		chrome.tabs.update({ url: "http://localhost:3000/#/login" });
+		chrome.tabs.update({ url: "https://www.yank.studio/auth/post-login" });
 		console.log("OAuth callback handled successfully");
 	} catch (error) {
 		console.error("Error handling OAuth callback:", error);
