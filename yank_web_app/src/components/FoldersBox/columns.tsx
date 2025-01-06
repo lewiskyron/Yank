@@ -5,6 +5,9 @@ import { useState } from "react";
 import { fetchFlashcards } from "@/api/supabase/fetchFlashcards";
 import AlertError from "../Alerts/AlertError";
 import { FlashCardsDialog } from "@/components/Flashcards/flashCardsDialog";
+import { Button } from "@/components/ui/button";
+import { CreateFlashcardDialog } from "@/components/Flashcards/createFlashcardDialog";
+import { type User } from "@supabase/supabase-js";
 
 export type Folder = {
 	folder_name: string;
@@ -22,7 +25,10 @@ interface Flashcard {
 	answer: string;
 }
 
-export const columns: ColumnDef<Folder>[] = [
+export const columns = (
+	user: User | null,
+	refetchFolders: () => Promise<void>,
+): ColumnDef<Folder>[] => [
 	{
 		accessorKey: "folder_name",
 		header: "Name",
@@ -32,7 +38,6 @@ export const columns: ColumnDef<Folder>[] = [
 			return (
 				<div className="flex items-center space-x-2">
 					<FolderIcon className="h-5 w-5 text-purple-500" />{" "}
-					{/* Fixed purple color */}
 					<span>{folderName}</span>
 				</div>
 			);
@@ -76,6 +81,40 @@ export const columns: ColumnDef<Folder>[] = [
 						folderName={folderName}
 					/>
 				</div>
+			);
+		},
+	},
+	{
+		accessorKey: "create_flashcard",
+		header: "Create Flashcard",
+		cell: ({ row }) => {
+			const [showDialog, setShowDialog] = useState(false);
+			const folderId = row.original.folder_id;
+			const folderName = row.original.folder_name;
+
+			const handleCreateFlashcard = async () => {
+				await refetchFolders();
+				setShowDialog(false);
+			};
+
+			return (
+				<>
+					<Button
+						onClick={() => setShowDialog(true)}
+						className="w-42 bg-blue-600 py-1 text-sm font-medium text-white hover:bg-blue-700"
+					>
+						+ Flashcard
+					</Button>
+
+					<CreateFlashcardDialog
+						isOpen={showDialog}
+						onOpenChange={setShowDialog}
+						folderId={folderId}
+						folderName={folderName}
+						onFlashcardCreated={handleCreateFlashcard}
+						user={user}
+					/>
+				</>
 			);
 		},
 	},
