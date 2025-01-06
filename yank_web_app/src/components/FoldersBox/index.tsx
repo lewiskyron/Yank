@@ -20,8 +20,12 @@ export default function FoldersBox(props: FolderBoxProps) {
 		if (error) {
 			throw error;
 		}
-		console.log(data);
 		return data;
+	};
+
+	const refetchFolders = async () => {
+		const updatedfolders = await getFolders();
+		setData(updatedfolders);
 	};
 
 	useEffect(() => {
@@ -32,7 +36,7 @@ export default function FoldersBox(props: FolderBoxProps) {
 
 	return (
 		<div className="container mx-auto py-10">
-			<DataTable columns={columns} data={data} />
+			<DataTable columns={columns(props.user, refetchFolders)} data={data} />
 		</div>
 	);
 }
