@@ -64,17 +64,14 @@ export function CreateFlashcardDialog({
 				setTimeout(() => {
 					toast.dismiss();
 				}, 3000);
-				onFlashcardCreated;
+				if (onFlashcardCreated) {
+					onFlashcardCreated();
+				}
 			}
 			// Reset form and close dialog
 			setQuestion("");
 			setAnswer("");
 			onOpenChange(false);
-
-			// Trigger refresh of flashcards list if callback provided
-			if (onFlashcardCreated) {
-				onFlashcardCreated();
-			}
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "An error occurred");
 		} finally {
