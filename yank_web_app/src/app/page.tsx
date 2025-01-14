@@ -5,9 +5,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { createClient } from "@/api/supabase/serverClient";
 
 export const metadata: Metadata = {
-	title:
-		"Next.js E-commerce Dashboard Page | NextAdmin - Next.js Dashboard Kit",
-	description: "This is Next.js Home page for NextAdmin Dashboard Kit",
+	title: "Yank - Build Flashcards at the speed of light",
+	description: "Revolutionize Learning: AI-Powered Spaced Repetition Platform",
 };
 
 export default async function Home() {
