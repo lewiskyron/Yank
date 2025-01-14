@@ -19,7 +19,7 @@ interface Flashcard {
 	flashcard_id: string;
 	created_at: string;
 	folder_id: number;
-	user_id: string;
+	user_id: string | null;
 	text: string;
 	question: string;
 	answer: string;
@@ -59,7 +59,7 @@ export const columns = (
 
 			const handlePracticeClick = async (id: number) => {
 				setError(null);
-				const { data, error } = await fetchFlashcards(id);
+				const { data, error } = await fetchFlashcards(id, true);
 
 				if (error) {
 					setError("Failed to fetch flashcards.");
