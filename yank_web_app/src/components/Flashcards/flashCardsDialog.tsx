@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { motion } from "motion/react";
 import confetti from "./confetti.json";
 import Lottie from "lottie-react";
+import { X, Flame, ThumbsUp, Zap } from "lucide-react";
 
 import {
 	Dialog,
@@ -124,6 +125,56 @@ export function FlashCardsDialog({
 									Answer: {currentFlashcard.answer}
 								</p>
 							</motion.div>
+						)}
+
+						{showAnswer && (
+							<div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+								<Button
+									onClick={handleNext}
+									variant="outline"
+									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+								>
+									<X className="h-5 w-5 text-red-500" />
+									<span className="font-medium">Didn't Know</span>
+									<span className="text-muted-foreground text-xs">
+										I didn't know it or got it wrong.
+									</span>
+								</Button>
+								<Button
+									onClick={handleNext}
+									variant="outline"
+									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+								>
+									<Flame className="h-5 w-5 text-orange-500" />
+									<span className="font-medium">Tricky</span>
+									<span className="text-muted-foreground text-xs">
+										I remembered, but it was really hard.
+									</span>
+								</Button>
+								<Button
+									onClick={handleNext}
+									variant="outline"
+									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+								>
+									<ThumbsUp className="h-5 w-5 text-green-500" />
+									<span className="font-medium">Got It</span>
+									<span className="text-muted-foreground text-xs">
+										I remembered with some effort.
+									</span>
+								</Button>
+
+								<Button
+									onClick={handleNext}
+									variant="outline"
+									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+								>
+									<Zap className="h-5 w-5 text-blue-500" />
+									<span className="font-medium">Too Easy</span>
+									<span className="text-muted-foreground text-xs">
+										I remembered it instantly!
+									</span>
+								</Button>
+							</div>
 						)}
 
 						<div className="flex gap-2">
