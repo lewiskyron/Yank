@@ -20,7 +20,7 @@ interface Flashcard {
 	flashcard_id: string;
 	created_at: string;
 	folder_id: number;
-	user_id: string;
+	user_id: string | null;
 	text: string;
 	question: string;
 	answer: string;
