@@ -8,14 +8,13 @@ import { FlashCardsDialog } from "@/components/Flashcards/flashCardsDialog";
 import { Button } from "@/components/ui/button";
 import { CreateFlashcardDialog } from "@/components/Flashcards/createFlashcardDialog";
 import { type User } from "@supabase/supabase-js";
-import {TransformedFlashcard} from "@/types/flashcard.types";
+import { TransformedFlashcard } from "@/types/flashcard.types";
 
 export type Folder = {
 	folder_name: string;
 	no_of_flashcards: number;
 	folder_id: number;
 };
-
 
 export const columns = (
 	user: User | null,
