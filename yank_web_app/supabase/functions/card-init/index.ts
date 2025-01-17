@@ -31,7 +31,6 @@ Deno.serve(async (req) => {
 
 		const FlashcardRecordPayload: CardPayload = await req.json();
 		const { flashcard_id } = FlashcardRecordPayload.record;
-		console.log(flashcard_id);
 		const card: Card = createEmptyCard();
 
 		const responseData = {

@@ -8,6 +8,9 @@ import { motion } from "motion/react";
 import confetti from "./confetti.json";
 import Lottie from "lottie-react";
 import { X, Flame, ThumbsUp, Zap } from "lucide-react";
+import { rateFlashcard } from "@/api/supabase/fsrsAdapter";
+import { Grade, Rating } from "ts-fsrs";
+import { FlashcardDialogProps } from "@/types/flashcard.types";
 
 import {
 	Dialog,
@@ -17,32 +20,16 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 
-interface Flashcard {
-	flashcard_id: string;
-	created_at: string;
-	folder_id: number;
-	user_id: string | null;
-	text: string;
-	question: string;
-	answer: string;
-}
-
-interface PracticeDialogProps {
-	flashcards: Flashcard[];
-	isOpen: boolean;
-	onOpenChange: (open: boolean) => void;
-	folderName: string;
-}
-
 export function FlashCardsDialog({
 	flashcards,
 	isOpen,
 	onOpenChange,
 	folderName,
-}: PracticeDialogProps) {
+}: FlashcardDialogProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [userAnswer, setUserAnswer] = useState("");
 	const [showAnswer, setShowAnswer] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	useEffect(() => {
 		if (flashcards.length > 0) {
@@ -71,6 +58,20 @@ export function FlashCardsDialog({
 			setUserAnswer("");
 		}
 	}, [flashcards]);
+
+	const handleRating = async (rating: Grade) => {
+		if (isSubmitting || !currentFlashcard) return;
+
+		try {
+			setIsSubmitting(true);
+			await rateFlashcard(currentFlashcard, rating);
+			// setCurrentIndex((prev) => (prev + 1) % flashcards.length); // <- This line handles moving to next card -- for now let users press the next button
+		} catch (error) {
+			console.error("Error rating flashcard:", error);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	const handleNext = () => {
 		if (flashcards.length > 0) {
@@ -130,7 +131,7 @@ export function FlashCardsDialog({
 						{showAnswer && (
 							<div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
 								<Button
-									onClick={handleNext}
+									onClick={() => handleRating(Rating.Again)}
 									variant="outline"
 									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
 								>
@@ -141,7 +142,7 @@ export function FlashCardsDialog({
 									</span>
 								</Button>
 								<Button
-									onClick={handleNext}
+									onClick={() => handleRating(Rating.Hard)}
 									variant="outline"
 									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
 								>
@@ -152,7 +153,7 @@ export function FlashCardsDialog({
 									</span>
 								</Button>
 								<Button
-									onClick={handleNext}
+									onClick={() => handleRating(Rating.Good)}
 									variant="outline"
 									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
 								>
@@ -164,7 +165,7 @@ export function FlashCardsDialog({
 								</Button>
 
 								<Button
-									onClick={handleNext}
+									onClick={() => handleRating(Rating.Easy)}
 									variant="outline"
 									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
 								>

@@ -6,7 +6,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"generate:types": "dotenv -e .env.local -- npx supabase gen types --lang=typescript $SUPABASE_PROJECT_ID --schema public > ./src/types/database.types.ts"
 	},
 	"dependencies": {
 		"@heroicons/react": "^2.2.0",
@@ -44,7 +45,8 @@
 		"react-table": "^7.8.0",
 		"sonner": "^1.7.1",
 		"tailwind-merge": "^2.5.5",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"ts-fsrs": "^4.6.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20",
@@ -52,6 +54,7 @@
 		"@types/react-dom": "^18",
 		"@types/react-table": "^7.7.19",
 		"autoprefixer": "^10.0.1",
+		"dotenv-cli": "^8.0.0",
 		"eslint": "^8",
 		"eslint-config-next": "14.1.0",
 		"postcss": "^8",

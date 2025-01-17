@@ -19,8 +19,9 @@ export type Database = {
 					lapses: number | null;
 					last_review: string | null;
 					reps: number | null;
+					scheduled_days: number | null;
 					stability: number | null;
-					state: string | null;
+					state: number | null;
 					text: string;
 					user_id: string | null;
 				};
@@ -33,8 +34,9 @@ export type Database = {
 					lapses?: number | null;
 					last_review?: string | null;
 					reps?: number | null;
+					scheduled_days?: number | null;
 					stability?: number | null;
-					state?: string | null;
+					state?: number | null;
 					text: string;
 					user_id?: string | null;
 				};
@@ -47,8 +49,9 @@ export type Database = {
 					lapses?: number | null;
 					last_review?: string | null;
 					reps?: number | null;
+					scheduled_days?: number | null;
 					stability?: number | null;
-					state?: string | null;
+					state?: number | null;
 					text?: string;
 					user_id?: string | null;
 				};
