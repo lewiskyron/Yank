@@ -8,6 +8,7 @@ import { FlashCardsDialog } from "@/components/Flashcards/flashCardsDialog";
 import { Button } from "@/components/ui/button";
 import { CreateFlashcardDialog } from "@/components/Flashcards/createFlashcardDialog";
 import { type User } from "@supabase/supabase-js";
+import {TransformedFlashcard} from "@/types/flashcard.types";
 
 export type Folder = {
 	folder_name: string;
@@ -15,15 +16,6 @@ export type Folder = {
 	folder_id: number;
 };
 
-interface Flashcard {
-	flashcard_id: string;
-	created_at: string;
-	folder_id: number;
-	user_id: string | null;
-	text: string;
-	question: string;
-	answer: string;
-}
 
 export const columns = (
 	user: User | null,
@@ -53,7 +45,7 @@ export const columns = (
 		cell: ({ row }) => {
 			const folderId = row.original.folder_id;
 			const folderName = row.original.folder_name;
-			const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+			const [flashcards, setFlashcards] = useState<TransformedFlashcard[]>([]);
 			const [isDialogOpen, setIsDialogOpen] = useState(false);
 			const [error, setError] = useState<string | null>(null);
 
