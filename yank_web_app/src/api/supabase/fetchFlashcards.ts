@@ -1,12 +1,8 @@
 // src/api/fetchFlashcards.ts
 import supabaseClient from "./supabaseClient";
-import { Tables } from "@/types/database.types";
-
-type DbFlashcard = Tables<"Flashcard">;
-type TransformedFlashcard = DbFlashcard & {
-	question: string;
-	answer: string;
-};
+import { TransformedFlashcard } from "@/types/flashcard.types";
+import { DbFlashcard } from "@/types/flashcard.types";
+import { PracticeMode } from "@/types/flashcard.types";
 
 const parseDateTime = (dateStr: string | Date | null): Date | null => {
 	if (!dateStr) return null;
@@ -63,10 +59,9 @@ const transformFlashcard = (flashcard: DbFlashcard): TransformedFlashcard => {
 
 export const fetchFlashcards = async (
 	folderId: number,
-	showOnlyDue: boolean = true,
+	practiceMode: PracticeMode = PracticeMode.SPACED_REPETITION,
 ) => {
 	try {
-		// Fetch flashcards that belong to the given folder
 		const { data: rawData, error } = await supabaseClient
 			.from("Flashcard")
 			.select("*")
@@ -84,10 +79,31 @@ export const fetchFlashcards = async (
 		// Transform the flashcards
 		const transformedCards = rawData.map(transformFlashcard);
 
-		// Filter for due cards if requested
-		const finalCards = showOnlyDue
-			? transformedCards.filter((card) => isCardDue(card))
-			: transformedCards;
+		// Sort and filter based on practice mode
+		let finalCards: TransformedFlashcard[] = [];
+
+		switch (practiceMode) {
+			case PracticeMode.SPACED_REPETITION:
+				return {
+					data: transformedCards.filter((card) => isCardDue(card)),
+					error: null,
+				};
+
+			case PracticeMode.CHRONOLOGICAL:
+				return {
+					data: transformedCards.sort((a, b) => {
+						const dateA = parseDateTime(a.created_at);
+						const dateB = parseDateTime(b.created_at);
+						if (!dateA || !dateB) return 0;
+						return dateB.getTime() - dateA.getTime();
+					}),
+					error: null,
+				};
+
+			default:
+				finalCards = transformedCards; // Fallback case
+				break;
+		}
 
 		return {
 			data: finalCards,

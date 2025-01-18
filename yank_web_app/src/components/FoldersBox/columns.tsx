@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { CreateFlashcardDialog } from "@/components/Flashcards/createFlashcardDialog";
 import { type User } from "@supabase/supabase-js";
 import { TransformedFlashcard } from "@/types/flashcard.types";
+import { PracticeMode } from "@/types/flashcard.types";
 
 export type Folder = {
 	folder_name: string;
@@ -47,10 +48,14 @@ export const columns = (
 			const [flashcards, setFlashcards] = useState<TransformedFlashcard[]>([]);
 			const [isDialogOpen, setIsDialogOpen] = useState(false);
 			const [error, setError] = useState<string | null>(null);
+			const [selectedMode, setSelectedMode] = useState<PracticeMode>(
+				PracticeMode.SPACED_REPETITION,
+			);
 
-			const handlePracticeClick = async (id: number) => {
+			const handlePracticeClick = async (id: number, mode: PracticeMode) => {
 				setError(null);
-				const { data, error } = await fetchFlashcards(id, true);
+				setSelectedMode(mode);
+				const { data, error } = await fetchFlashcards(id, mode);
 
 				if (error) {
 					setError("Failed to fetch flashcards.");
@@ -70,6 +75,7 @@ export const columns = (
 						isOpen={isDialogOpen}
 						onOpenChange={setIsDialogOpen}
 						folderName={folderName}
+						practiceMode={selectedMode}
 					/>
 				</div>
 			);
