@@ -22,9 +22,15 @@ export interface FlashcardDialogProps {
 	isOpen: boolean;
 	onOpenChange: (open: boolean) => void;
 	folderName: string;
+	practiceMode: PracticeMode;
 }
 
 export interface RatingResponse {
 	success: boolean;
 	error?: string;
+}
+
+export enum PracticeMode {
+	SPACED_REPETITION = "spaced_repetition",
+	CHRONOLOGICAL = "chronological",
 }

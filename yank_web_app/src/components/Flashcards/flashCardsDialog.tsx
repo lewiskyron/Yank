@@ -11,6 +11,7 @@ import { X, Flame, ThumbsUp, Zap } from "lucide-react";
 import { rateFlashcard } from "@/api/supabase/fsrsAdapter";
 import { Grade, Rating } from "ts-fsrs";
 import { FlashcardDialogProps } from "@/types/flashcard.types";
+import { PracticeMode } from "@/types/flashcard.types";
 
 import {
 	Dialog,
@@ -25,6 +26,7 @@ export function FlashCardsDialog({
 	isOpen,
 	onOpenChange,
 	folderName,
+	practiceMode,
 }: FlashcardDialogProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [userAnswer, setUserAnswer] = useState("");
@@ -128,7 +130,7 @@ export function FlashCardsDialog({
 							</motion.div>
 						)}
 
-						{showAnswer && (
+						{showAnswer && practiceMode === PracticeMode.SPACED_REPETITION && (
 							<div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
 								<Button
 									onClick={() => handleRating(Rating.Again)}
