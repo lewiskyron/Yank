@@ -1,4 +1,4 @@
-import { Calendar, Folder, Home, Search, Settings } from "lucide-react";
+import { Folder, Home } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { type User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -29,29 +29,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // Menu items.
 const items = [
 	{
-		title: "Home",
-		url: "/",
+		title: "My Stats",
+		url: "/MyStats",
 		icon: Home,
 	},
 	{
 		title: "Folders",
 		url: "/folders",
 		icon: Folder,
-	},
-	{
-		title: "Calendar",
-		url: "#",
-		icon: Calendar,
-	},
-	{
-		title: "Search",
-		url: "#",
-		icon: Search,
-	},
-	{
-		title: "Settings",
-		url: "#",
-		icon: Settings,
 	},
 ];
 
