@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Lottie from "lottie-react";
 import { motion, AnimatePresence } from "framer-motion";
 import rocketAnimation from "../post-login/rocket_animation.json";
