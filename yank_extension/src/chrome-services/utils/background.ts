@@ -221,7 +221,6 @@ async function finishUserOAuth(url: string) {
 		if (error) throw error;
 
 		// Persist session to storage
-		console.log("This is the Session data:", data.session);
 		await chrome.storage.local.set({ session: data.session });
 
 		// sending the sessino to the OAuth Context

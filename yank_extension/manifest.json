@@ -35,7 +35,7 @@
 		}
 	],
 
-	"permissions": ["bookmarks", "storage", "identity", "tabs"],
+	"permissions": ["storage", "identity", "tabs"],
 	"oauth2": {
 		"client_id": "967346537744-g8vumrkstbab9ggondnuq1g4qmpepd11.apps.googleusercontent.com",
 		"scopes": ["openid", "email", "profile"]

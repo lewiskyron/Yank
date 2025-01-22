@@ -35,13 +35,11 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
 function enableHighlighter(): void {
 	document.addEventListener("mouseup", handleMouseUp);
-	console.log("Highlighter enabled");
 }
 
 function disableHighlighter(): void {
 	document.removeEventListener("mouseup", handleMouseUp);
 	hideColorPicker();
-	console.log("Highlighter disabled");
 }
 
 function createColorPicker(): ColorPickerElement {
@@ -60,7 +58,6 @@ function createColorPicker(): ColorPickerElement {
 		applyHighlight();
 		hideColorPicker();
 	};
-	console.log("Pen Icon created");
 	return penIcon;
 }
 
@@ -76,7 +73,6 @@ function showColorPicker(x: number, y: number): void {
 		colorPicker.style.display = "inline-block";
 		colorPicker.style.left = `${x}px`;
 		colorPicker.style.top = `${y}px`;
-		console.log("Pen icon shown");
 	}
 }
 
@@ -84,7 +80,6 @@ function hideColorPicker(): void {
 	const colorPicker = getColorPicker();
 	if (colorPicker) {
 		colorPicker.style.display = "none";
-		console.log("Pen Icon hidden");
 	}
 }
 
@@ -98,20 +93,15 @@ function applyHighlight(): void {
 		highlightWrapper.style.backgroundColor = DEFAULT_HIGHLIGHT_COLOR;
 
 		contents.childNodes.forEach((node: Node) => {
-			console.log("Node type:", node.nodeType);
 			if (node.nodeType === Node.TEXT_NODE) {
-				console.log("Processing a text node:", node.textContent);
 				const span = document.createElement("span");
 				span.style.backgroundColor = DEFAULT_HIGHLIGHT_COLOR;
 				span.textContent = node.textContent;
 				highlightWrapper.appendChild(span);
 			} else {
-				console.log("Processing a non-text node, cloning and appending.");
 				highlightWrapper.appendChild(node.cloneNode(true));
 			}
 		});
-
-		console.log("Highlighting process completed.");
 
 		range.insertNode(highlightWrapper);
 
@@ -133,8 +123,6 @@ function applyHighlight(): void {
 function handleMouseUp(e: MouseEvent): void {
 	const selection = window.getSelection();
 	if (selection && !selection.isCollapsed) {
-		const selectedText = selection.toString();
-		console.log("Selected text:", selectedText);
 		const range = selection.getRangeAt(0);
 		const rect = range.getBoundingClientRect();
 		const adjustedRect = {
