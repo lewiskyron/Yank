@@ -2,9 +2,8 @@ import { Folder, Home } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { type User } from "@supabase/supabase-js";
 import Link from "next/link";
-import supabaseClient from "@/api/supabase/supabaseClient";
-import { useRouter } from "next/navigation";
 import { Shield } from "lucide-react";
+import { logout } from "@/app/auth/actions";
 
 import {
 	Sidebar,
@@ -43,14 +42,14 @@ const items = [
 export function AppSidebar(props: { user: User | null }) {
 	const userEmail = props.user?.email;
 	const avatarUrl = props.user?.user_metadata?.avatar_url;
-	const router = useRouter();
 	const handleLogout = async () => {
-		const { error } = await supabaseClient.auth.signOut({ scope: "global" });
-
-		if (error) {
-			throw error;
+		try {
+			await logout();
+		} catch (error) {
+			if (error instanceof Error) {
+				throw error;
+			}
 		}
-		router.replace("auth/login");
 	};
 
 	return (
