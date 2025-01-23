@@ -1,17 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function updateSession(request: NextRequest) {
-	if (request.nextUrl.pathname === "/") {
-		return NextResponse.next();
-	}
-
-	if (request.nextUrl.pathname === "/PrivacyPolicy") {
-		return NextResponse.next();
-	}
-
-	// this page is for post-authentication from the web extnesion. Thus, we don't want to check for the session since its set in the extension.
-	if (request.nextUrl.pathname === "/auth/post-login") {
+	const publicRoutes = ["/", "/PrivacyPolicy", "/auth/post-login"];
+	if (publicRoutes.includes(request.nextUrl.pathname)) {
 		return NextResponse.next();
 	}
 
@@ -57,7 +49,6 @@ export async function updateSession(request: NextRequest) {
 		url.pathname = "auth/login";
 		return NextResponse.redirect(url);
 	}
-
 	// IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
 	// creating a new response object with NextResponse.next() make sure to:
 	// 1. Pass the request in it, like so:

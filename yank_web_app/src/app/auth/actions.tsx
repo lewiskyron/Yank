@@ -42,6 +42,13 @@ export async function signUp(formData: FormData) {
 	}
 }
 
+export async function logout() {
+	const supabase = await createClient();
+	await supabase.auth.signOut();
+	revalidatePath("/", "layout");
+	redirect("/");
+}
+
 export async function signInWIthGoogle() {
 	const supabase = createClient();
 	const origin = headers().get("origin");
