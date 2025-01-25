@@ -1,4 +1,4 @@
-import { Folder, Home } from "lucide-react";
+import { Folder, BarChart2, Sparkles } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { type User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -28,9 +28,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // Menu items.
 const items = [
 	{
+		title: "Getting Started",
+		url: "/getting-started",
+		icon: Sparkles,
+	},
+	{
 		title: "My Stats",
-		url: "/MyStats",
-		icon: Home,
+		url: "/My-stats",
+		icon: BarChart2,
 	},
 	{
 		title: "Folders",
@@ -93,7 +98,7 @@ export function AppSidebar(props: { user: User | null }) {
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild>
 										<Link href={item.url}>
-											<item.icon />
+											<item.icon className="text-[#4F46E5]" />
 											<span>{item.title}</span>
 										</Link>
 									</SidebarMenuButton>

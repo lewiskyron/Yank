@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 			const isNewUser = timeDifference <= 30000; // withing 30 seconds from creation.
 
 			const next = isNewUser
-				? "/getting-started"
+				? "/auth/post-signup"
 				: (searchParams.get("next") ?? "/folders");
 			const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
 			const isLocalEnv = process.env.NODE_ENV === "development";
