@@ -24,6 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<User | null>(null);
 	const [authError, setAuthError] = useState<string>("");
 	const [loading, setLoading] = useState(true);
+	const redirectUrl: string = import.meta.env.VITE_REDIRECT_URL;
 
 	useEffect(() => {
 		const restoreSession = async () => {
@@ -74,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: "google",
 			options: {
-				redirectTo: chrome.identity.getRedirectURL(),
+				redirectTo: redirectUrl,
 			},
 		});
 

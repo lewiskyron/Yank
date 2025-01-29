@@ -147,14 +147,20 @@ chrome.runtime.onMessage.addListener(
 				sendResponse({ status: 200, data: storedHighlightedText });
 			} else {
 				// Respond with status 404 and error message
-				sendResponse({ status: 404, message: "No highlighted text found" });
+				sendResponse({
+					status: 404,
+					message: "No highlighted text found",
+				});
 			}
 		} else if (message.action === "toggleHighlighter") {
 			if (message.data !== null) {
 				toggleHighlighterSwitch(message.data);
 				sendResponse({ status: 200, message: "Success" });
 			} else {
-				sendResponse({ status: 404, message: "No highlighted text found" });
+				sendResponse({
+					status: 404,
+					message: "No highlighted text found",
+				});
 			}
 		}
 	},
