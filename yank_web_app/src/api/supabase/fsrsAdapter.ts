@@ -96,28 +96,28 @@ export const rateFlashcard = async (
 	try {
 		// Apply the rating and get the next card state
 		const nextCardState = applyRating(flashcard, rating);
-		console.log(nextCardState);
 
 		// Convert the FSRS card back to our format
 		const updatedFlashcard = convertFromFSRSCard(nextCardState);
-		const data = await updateFlashcardScheduling(
+
+		const { data } = await updateFlashcardScheduling(
 			flashcard.flashcard_id,
 			updatedFlashcard,
 		);
 
-		if (data) {
-			return { success: true };
-		} else {
+		if (!data) {
 			return {
 				success: false,
-				error: "Unable to rate flashcard",
+				error: "Error updating flashcard scheduling",
 			};
 		}
+
+		return { success: true };
 	} catch (err) {
 		console.error("Error rating flashcard:", err);
 		return {
 			success: false,
-			error: "Unable to rate flashcard",
+			error: err instanceof Error ? err.message : "Unable to rate flashcard",
 		};
 	}
 };

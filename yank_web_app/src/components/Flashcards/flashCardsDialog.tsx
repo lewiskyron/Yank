@@ -12,6 +12,8 @@ import { rateFlashcard } from "@/api/supabase/fsrsAdapter";
 import { Grade, Rating } from "ts-fsrs";
 import { FlashcardDialogProps } from "@/types/flashcard.types";
 import { PracticeMode } from "@/types/flashcard.types";
+import successAnimation from "./success-animation.json";
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
 import {
 	Dialog,
@@ -32,6 +34,28 @@ export function FlashCardsDialog({
 	const [userAnswer, setUserAnswer] = useState("");
 	const [showAnswer, setShowAnswer] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [showRatingSuccess, setShowRatingSuccess] = useState(false);
+
+	const handleRating = async (rating: Grade) => {
+		if (isSubmitting || !currentFlashcard) return;
+
+		try {
+			setIsSubmitting(true);
+			const response = await rateFlashcard(currentFlashcard, rating);
+			if (response.success) {
+				setShowRatingSuccess(true);
+				setTimeout(() => {
+					setShowRatingSuccess(false);
+				}, 1800);
+			} else {
+				console.error("Failed to rate flashcard:", response.error);
+			}
+		} catch (error) {
+			console.error("Error rating flashcard:", error);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	useEffect(() => {
 		if (flashcards.length > 0) {
@@ -60,20 +84,6 @@ export function FlashCardsDialog({
 			setUserAnswer("");
 		}
 	}, [flashcards]);
-
-	const handleRating = async (rating: Grade) => {
-		if (isSubmitting || !currentFlashcard) return;
-
-		try {
-			setIsSubmitting(true);
-			await rateFlashcard(currentFlashcard, rating);
-			// setCurrentIndex((prev) => (prev + 1) % flashcards.length); // <- This line handles moving to next card -- for now let users press the next button
-		} catch (error) {
-			console.error("Error rating flashcard:", error);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
 
 	const handleNext = () => {
 		if (flashcards.length > 0) {
@@ -131,53 +141,82 @@ export function FlashCardsDialog({
 						)}
 
 						{showAnswer && practiceMode === PracticeMode.SPACED_REPETITION && (
-							<div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-								<Button
-									onClick={() => handleRating(Rating.Again)}
-									variant="outline"
-									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-								>
-									<X className="h-5 w-5 text-red-500" />
-									<span className="font-medium">Didn't Know</span>
-									<span className="text-muted-foreground text-xs">
-										I didn't know it or got it wrong.
-									</span>
-								</Button>
-								<Button
-									onClick={() => handleRating(Rating.Hard)}
-									variant="outline"
-									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-								>
-									<Flame className="h-5 w-5 text-orange-500" />
-									<span className="font-medium">Tricky</span>
-									<span className="text-muted-foreground text-xs">
-										I remembered, but it was really hard.
-									</span>
-								</Button>
-								<Button
-									onClick={() => handleRating(Rating.Good)}
-									variant="outline"
-									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-								>
-									<ThumbsUp className="h-5 w-5 text-green-500" />
-									<span className="font-medium">Got It</span>
-									<span className="text-muted-foreground text-xs">
-										I remembered with some effort.
-									</span>
-								</Button>
-
-								<Button
-									onClick={() => handleRating(Rating.Easy)}
-									variant="outline"
-									className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-								>
-									<Zap className="h-5 w-5 text-blue-500" />
-									<span className="font-medium">Too Easy</span>
-									<span className="text-muted-foreground text-xs">
-										I remembered it instantly!
-									</span>
-								</Button>
-							</div>
+							<motion.div
+								className="relative mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4"
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: -20 }}
+								transition={{
+									type: "spring",
+									stiffness: 100,
+									damping: 20,
+									delay: 0.2,
+								}}
+							>
+								{!showRatingSuccess ? (
+									<>
+										<Button
+											onClick={() => handleRating(Rating.Again)}
+											variant="outline"
+											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+										>
+											<X className="h-5 w-5 text-red-500" />
+											<span className="font-medium">Didn't Know</span>
+											<span className="text-muted-foreground text-xs">
+												I didn't know it or got it wrong.
+											</span>
+										</Button>
+										<Button
+											onClick={() => handleRating(Rating.Hard)}
+											variant="outline"
+											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+										>
+											<Flame className="h-5 w-5 text-orange-500" />
+											<span className="font-medium">Tricky</span>
+											<span className="text-muted-foreground text-xs">
+												I remembered, but it was really hard.
+											</span>
+										</Button>
+										<Button
+											onClick={() => handleRating(Rating.Good)}
+											variant="outline"
+											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+										>
+											<ThumbsUp className="h-5 w-5 text-green-500" />
+											<span className="font-medium">Got It</span>
+											<span className="text-muted-foreground text-xs">
+												I remembered with some effort.
+											</span>
+										</Button>
+										<Button
+											onClick={() => handleRating(Rating.Easy)}
+											variant="outline"
+											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+										>
+											<Zap className="h-5 w-5 text-blue-500" />
+											<span className="font-medium">Too Easy</span>
+											<span className="text-muted-foreground text-xs">
+												I remembered it instantly!
+											</span>
+										</Button>
+									</>
+								) : (
+									<div className="col-span-4 flex justify-center">
+										<Player
+											autoplay
+											loop={false}
+											src={successAnimation}
+											style={{ height: "100px", width: "100px" }}
+											speed={2.5}
+										>
+											<Controls
+												visible={false}
+												buttons={["play", "repeat", "frame", "debug"]}
+											/>
+										</Player>
+									</div>
+								)}
+							</motion.div>
 						)}
 
 						<div className="flex gap-2">
