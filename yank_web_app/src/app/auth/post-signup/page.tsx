@@ -85,7 +85,7 @@ const PostSignup = () => {
 											whileHover={{ scale: 1.02 }}
 											whileTap={{ scale: 0.98 }}
 										>
-											<Link href="/folders">
+											<Link href="/getting-started">
 												<Button
 													variant="outline"
 													size="lg"
