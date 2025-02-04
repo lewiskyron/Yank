@@ -4,19 +4,14 @@
 	"description": "Create Flashcards at the speed of light",
 	"version": "1.0",
 	"icons": {
-		"16": "highlighter.png",
-		"48": "highlighter.png",
-		"128": "highlighter.png",
-		"256": "highlighter.png"
+		"128": "highlighter-128.png",
+		"32": "highlighter-32.png",
+		"256": "highlighter-256.png"
 	},
 	"action": {
 		"default_popup": "index.html",
 		"default_title": "Yank",
-		"default_icon": {
-			"16": "highlighter.png",
-			"24": "highlighter.png",
-			"32": "highlighter.png"
-		}
+		"default_icon": "highlighter.png"
 	},
 	"content_scripts": [
 		{
