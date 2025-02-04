@@ -2,7 +2,7 @@ import { Folder, BarChart2, Sparkles } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { type User } from "@supabase/supabase-js";
 import Link from "next/link";
-import { Shield } from "lucide-react";
+import { Shield, Bug } from "lucide-react";
 import { logout } from "@/app/auth/actions";
 
 import {
@@ -110,6 +110,14 @@ export function AppSidebar(props: { user: User | null }) {
 			</SidebarContent>
 			<SidebarFooter>
 				<SidebarMenu>
+					<SidebarMenuItem>
+						<SidebarMenuButton asChild>
+							<Link href="https://docs.google.com/forms/d/e/1FAIpQLSdn5IXI8nC43NxC7T2DE72ti0DXqa6YLzyZPHulT95Zlr3kqg/viewform">
+								<Bug className="h-4 w-4" color="#4F46E5" />
+								<span>Report Bug/Feature</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
 					<SidebarMenuItem>
 						<SidebarMenuButton asChild>
 							<Link href="/PrivacyPolicy">
