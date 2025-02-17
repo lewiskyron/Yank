@@ -1,13 +1,17 @@
-import {
-	COLOR_PICKER_ID,
-	HIGHLIGHTER_IMAGE_PATH,
-	DEFAULT_HIGHLIGHT_COLOR,
-} from "./constants";
+// import {
+// 	COLOR_PICKER_ID,
+// 	HIGHLIGHTER_IMAGE_PATH,
+// 	DEFAULT_HIGHLIGHT_COLOR,
+// } from "./constants";
 
 interface HighlightedText {
 	text: string;
 	color: string;
 }
+
+const COLOR_PICKER_ID: string = "myColorPicker";
+const HIGHLIGHTER_IMAGE_PATH: string = "./highlighter.png";
+const DEFAULT_HIGHLIGHT_COLOR: string = "yellow";
 
 let highlightedText: HighlightedText | null = null;
 type ColorPickerElement = HTMLImageElement;
@@ -64,7 +68,9 @@ function createColorPicker(): ColorPickerElement {
 document.body.appendChild(createColorPicker());
 
 function getColorPicker(): ColorPickerElement | null {
-	return document.getElementById(COLOR_PICKER_ID) as ColorPickerElement | null;
+	return document.getElementById(COLOR_PICKER_ID) as
+		| ColorPickerElement
+		| null;
 }
 
 function showColorPicker(x: number, y: number): void {
