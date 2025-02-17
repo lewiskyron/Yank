@@ -15,18 +15,18 @@
 	},
 	"content_scripts": [
 		{
-			"js": ["src/chrome-services/utils/content.ts"],
+			"js": ["content.js"],
 			"matches": ["https://*/*"]
 		}
 	],
 	"background": {
-		"service_worker": "src/chrome-services/utils/background.ts",
+		"service_worker": "background.js",
 		"type": "module"
 	},
 	"web_accessible_resources": [
 		{
 			"matches": ["https://*/*"],
-			"resources": ["assets/*"]
+			"resources": ["highlighter.png"]
 		}
 	],
 
