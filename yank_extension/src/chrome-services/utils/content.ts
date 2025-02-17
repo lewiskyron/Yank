@@ -68,9 +68,7 @@ function createColorPicker(): ColorPickerElement {
 document.body.appendChild(createColorPicker());
 
 function getColorPicker(): ColorPickerElement | null {
-	return document.getElementById(COLOR_PICKER_ID) as
-		| ColorPickerElement
-		| null;
+	return document.getElementById(COLOR_PICKER_ID) as ColorPickerElement | null;
 }
 
 function showColorPicker(x: number, y: number): void {

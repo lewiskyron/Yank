@@ -18,7 +18,7 @@ export default defineConfig({
 			],
 		}),
 		// @ts-expect-error - crx plugin doesn't have proper TypeScript definitions
-		crx({ manifest })
+		crx({ manifest }),
 	],
 	resolve: {
 		alias: {
