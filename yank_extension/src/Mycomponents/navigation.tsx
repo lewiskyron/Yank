@@ -16,7 +16,7 @@ const Navigation: React.FC = () => {
 	};
 
 	const openWebApp = () => {
-		chrome.tabs.create({ url: "http://localhost:3000/folders" });
+		chrome.tabs.create({ url: "https://www.yank.studio/folders" });
 	};
 
 	return (

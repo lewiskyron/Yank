@@ -13,6 +13,13 @@ interface GettingStartedPageProps {
 }
 
 export default function GettingStartedPage({ user }: GettingStartedPageProps) {
+
+	const ExtensionInstallation = () => {
+		window.open(
+			"https://chromewebstore.google.com/detail/yank/namfekdmgkfkpllahnchkafkidkikfaf",
+		);
+	}
+
 	return (
 		<div className="bg-background mx-auto min-h-screen max-w-4xl p-8">
 			<motion.div
@@ -62,7 +69,10 @@ export default function GettingStartedPage({ user }: GettingStartedPageProps) {
 								Enhance your reading experience with AI-generated flashcards
 								using our Chrome extension.
 							</p>
-							<Button className="bg-[#4F46E5] hover:bg-[#4F46E5]/90">
+							<Button
+								className="bg-[#4F46E5] hover:bg-[#4F46E5]/90"
+								onClick={ExtensionInstallation}
+							>
 								Install Chrome Extension
 							</Button>
 						</div>
