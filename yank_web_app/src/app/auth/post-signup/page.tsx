@@ -3,6 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+
 import {
 	Card,
 	CardContent,
@@ -13,7 +15,19 @@ import {
 import { Download, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+
+
 const PostSignup = () => {
+	const router = useRouter();
+	const ExtensionInstallation = () => {
+		window.open(
+			"https://chromewebstore.google.com/detail/yank/namfekdmgkfkpllahnchkafkidkikfaf",
+		);
+		setTimeout(() => {
+			router.push("/getting-started");
+		}, 1000);
+	};
+
 	return (
 		<div className="min-h-screen bg-white dark:bg-gray-900">
 			<div className="container mx-auto px-4 py-16">
@@ -69,12 +83,7 @@ const PostSignup = () => {
 											<Button
 												size="lg"
 												className="h-auto rounded-xl bg-[#4F46E5] px-8 py-6 text-lg text-white hover:bg-[#4338CA]"
-												onClick={() =>
-													window.open(
-														"https://chrome.google.com/webstore/detail/your-extension-id",
-														"_blank",
-													)
-												}
+												onClick={ExtensionInstallation}
 											>
 												<Download className="mr-2 h-5 w-5" />
 												Install Extension
