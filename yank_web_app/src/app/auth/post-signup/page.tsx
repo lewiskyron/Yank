@@ -15,8 +15,6 @@ import {
 import { Download, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-
-
 const PostSignup = () => {
 	const router = useRouter();
 	const ExtensionInstallation = () => {

@@ -1,26 +1,35 @@
 "use client";
-/* eslint-disable no-useless-catch */
-import React, { useState, useEffect, useCallback } from "react";
+
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import supabaseClient from "@/api/supabase/supabaseClient";
-import { type User } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 import AlertError from "../Alerts/AlertError";
 import AlertSuccess from "../Alerts/AlertSuccess";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 interface ProfileBoxProps {
 	user: User | null;
+	backgroundImage: string;
 }
 
-export default function ProfileBox({ user }: ProfileBoxProps) {
+export default function ProfileBox({ user, backgroundImage }: ProfileBoxProps) {
 	const [firstName, setFirstName] = useState<string | null>("John");
 	const [lastName, setLastName] = useState<string | null>("Doe");
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [successMessage, setSuccessMessage] = useState<string | null>(null);
 	const [successTrigger, setSuccessTrigger] = useState<number>(0);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const avatar_url = user?.user_metadata?.avatar_url;
 
 	const getProfile = useCallback(async () => {
-		// this is to get user data so
 		try {
+			setIsLoading(true);
 			const { data, error, status } = await supabaseClient
 				.from("profiles")
 				.select("*")
@@ -34,25 +43,30 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 			if (data) {
 				setFirstName(data.first_name);
 				setLastName(data.last_name);
-				// setAvatarUrl(data.avatar_url);
 			}
 		} catch (error) {
-			throw error;
-			alert("Error loading user data");
+			console.error("Error loading user data:", error);
+			setErrorMessage("Failed to load profile data");
+		} finally {
+			setIsLoading(false);
 		}
-	}, [user, supabaseClient]);
+	}, [user]);
 
 	useEffect(() => {
-		getProfile();
+		if (user) {
+			getProfile();
+		}
 	}, [user, getProfile]);
 
 	const updateProfile = async () => {
+		setIsLoading(true);
 		const updates = {
 			id: user?.id,
 			first_name: firstName,
 			last_name: lastName,
 			updated_at: new Date().toISOString(),
 		};
+
 		try {
 			const { error } = await supabaseClient
 				.from("profiles")
@@ -63,89 +77,105 @@ export default function ProfileBox({ user }: ProfileBoxProps) {
 				setErrorMessage(error.message);
 			} else {
 				setErrorMessage(null);
-				setSuccessMessage("Updated Profile Successfuly!");
+				setSuccessMessage("Profile updated successfully!");
 				setSuccessTrigger((prev) => prev + 1);
-				getProfile();
 			}
 		} catch (err) {
-			throw err;
+			setErrorMessage("An unexpected error occurred");
+			console.error(err);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
+	const getInitials = () => {
+		return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`;
+	};
+
 	return (
-		<>
+		<div className="container max-w-4xl py-6">
 			{errorMessage && <AlertError errors={[errorMessage]} />}
 			{successMessage && (
 				<AlertSuccess messages={[successMessage]} trigger={successTrigger} />
 			)}
-			<div className="shadow-1 dark:bg-gray-dark dark:shadow-card overflow-hidden rounded-[10px] bg-white">
+
+			<Card className="overflow-hidden">
 				{/* Cover Image Section */}
-				<div className="h-35 md:h-65 relative z-20">
+				<div className="relative h-48 w-full sm:h-64 md:h-80">
 					<Image
-						src="/images/cover/cover-01.png"
-						alt="profile cover"
-						className="h-full w-full rounded-tl-[10px] rounded-tr-[10px] object-cover object-center"
-						width={970}
-						height={260}
-						style={{
-							width: "auto",
-							height: "auto",
-						}}
+						src={backgroundImage}
+						alt="Profile cover"
+						className="h-full w-full object-cover object-center"
+						fill
+						priority
 					/>
-					{/* Cover Edit Button */}
-					<div className="xsm:bottom-4 xsm:right-4 absolute bottom-1 right-1 z-10">
-						{/* ...existing code for cover photo editing */}
-					</div>
 				</div>
 
-				{/* Profile Information Section */}
-				<div className="xl:pb-11.5 px-4 pb-6 text-center lg:pb-8">
-					{/* Profile Picture */}
-					<div className="-mt-22 h-30 max-w-30 relative z-30 mx-auto w-full rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-[176px] sm:p-3">
-						{/* ...existing code for profile picture */}
-					</div>
-
-					{/* Name and Editable Fields */}
-					<div className="mt-4">
-						{/* Name Display */}
-						<h3 className="text-heading-6 text-dark mb-1 font-bold dark:text-white">
-							{firstName} {lastName}
-						</h3>
-						<p className="font-medium">{user?.email}</p>
-
-						{/* Input Fields to Edit Name */}
-						<div className="mt-4 flex flex-col items-center">
-							<input
-								type="text"
-								value={firstName || ""}
-								onChange={(e) => setFirstName(e.target.value)}
-								placeholder="First Name"
-								className="mb-2 w-1/2 rounded border border-gray-300 px-3 py-2"
-							/>
-							<input
-								type="text"
-								value={lastName || ""}
-								onChange={(e) => setLastName(e.target.value)}
-								placeholder="Last Name"
-								className="mb-4 w-1/2 rounded border border-gray-300 px-3 py-2"
-							/>
-
-							{/* Update Profile Button */}
-							<button
-								className="w-1/2 rounded bg-gradient-to-r from-purple-500 to-purple-700 px-4 py-2 font-semibold text-white hover:from-purple-600 hover:to-purple-800"
-								onClick={updateProfile}
-							>
-								Update Profile
-							</button>
+				<CardContent className="px-4 pb-6 pt-0 sm:px-6">
+					<div className="flex flex-col gap-6 md:flex-row">
+						{/* Profile Picture & Avatar Section */}
+						<div className="z-10 -mt-16 flex flex-col items-center">
+							<div className="relative">
+								<Avatar className="border-background h-32 w-32 border-4">
+									<AvatarImage
+										src={avatar_url}
+										alt={`${firstName} ${lastName}`}
+									/>
+									<AvatarFallback className="bg-primary/10 text-primary text-2xl">
+										{getInitials()}
+									</AvatarFallback>
+								</Avatar>
+							</div>
 						</div>
 
-						{/* Stats Section */}
-						{/* <div className="mx-auto mb-5.5 mt-5 grid max-w-[370px] grid-cols-3 rounded-[5px] border border-stroke py-[9px] shadow-1 dark:border-dark-3 dark:bg-dark-2 dark:shadow-card"> */}
-						{/* ...existing code for stats */}
-						{/* </div> */}
+						{/* Profile Information Section */}
+						<div className="flex-1 space-y-6 pt-4 md:pt-0">
+							<div>
+								<h2 className="text-2xl font-bold tracking-tight">
+									{firstName} {lastName}
+								</h2>
+								<p className="text-muted-foreground">{user?.email}</p>
+							</div>
+
+							<Separator />
+
+							<div className="grid gap-6">
+								<div className="grid gap-3">
+									<h3 className="text-lg font-semibold">Profile Information</h3>
+									<div className="grid gap-4 md:grid-cols-2">
+										<div className="space-y-2">
+											<Label htmlFor="firstName">First Name</Label>
+											<Input
+												id="firstName"
+												value={firstName || ""}
+												onChange={(e) => setFirstName(e.target.value)}
+												placeholder="First Name"
+											/>
+										</div>
+										<div className="space-y-2">
+											<Label htmlFor="lastName">Last Name</Label>
+											<Input
+												id="lastName"
+												value={lastName || ""}
+												onChange={(e) => setLastName(e.target.value)}
+												placeholder="Last Name"
+											/>
+										</div>
+									</div>
+								</div>
+
+								<Button
+									onClick={updateProfile}
+									disabled={isLoading}
+									className="w-full bg-[#4F46E5] text-white hover:bg-[#4338CA] md:w-auto md:self-end"
+								>
+									{isLoading ? "Updating..." : "Update Profile"}
+								</Button>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</>
+				</CardContent>
+			</Card>
+		</div>
 	);
 }
