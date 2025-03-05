@@ -13,12 +13,11 @@ interface GettingStartedPageProps {
 }
 
 export default function GettingStartedPage({ user }: GettingStartedPageProps) {
-
 	const ExtensionInstallation = () => {
 		window.open(
 			"https://chromewebstore.google.com/detail/yank/namfekdmgkfkpllahnchkafkidkikfaf",
 		);
-	}
+	};
 
 	return (
 		<div className="bg-background mx-auto min-h-screen max-w-4xl p-8">

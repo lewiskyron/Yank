@@ -16,8 +16,6 @@ export default async function Profile() {
 		data: { user },
 	} = await (await supabaseServer).auth.getUser();
 
-	
-
 	const backgroundImage: Array<string> = [
 		"https://wbxueysawskymjeqmssw.supabase.co/storage/v1/object/public/profile_backgrounds//paul-earle-xJ2tjuUHD9M-unsplash.jpg",
 		"https://wbxueysawskymjeqmssw.supabase.co/storage/v1/object/public/profile_backgrounds//pawel-czerwinski-ZlHvmQ0igW4-unsplash.jpg",
@@ -26,9 +24,8 @@ export default async function Profile() {
 		"https://wbxueysawskymjeqmssw.supabase.co/storage/v1/object/public/profile_backgrounds//vinoth-ragunathan-cvQ6wD3bPYE-unsplash.jpg",
 	];
 
-	const ranadomBackgroundImage = backgroundImage[Math.floor(Math.random() * backgroundImage.length)];
-
-
+	const ranadomBackgroundImage =
+		backgroundImage[Math.floor(Math.random() * backgroundImage.length)];
 
 	return (
 		<DefaultLayout user={user}>
