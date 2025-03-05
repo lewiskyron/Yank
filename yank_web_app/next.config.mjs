@@ -1,7 +1,11 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ["localhost", "www.remnote.com"],
+		domains: [
+			"localhost",
+			"www.remnote.com",
+			"wbxueysawskymjeqmssw.supabase.co",
+		],
 		remotePatterns: [
 			{
 				protocol: "https",
