@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +13,11 @@ import { Grade, Rating } from "ts-fsrs";
 import { FlashcardDialogProps } from "@/types/flashcard.types";
 import { PracticeMode } from "@/types/flashcard.types";
 import successAnimation from "./success-animation.json";
+import bunnyloader from "./bunny-loader.json";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
+import { getCritique } from "@/api/axios/flashcardCritique";
+import { CritiqueResponse } from "@/types/flashcard.types";
+import { CritiqueBox } from "./critiqueBox";
 
 import {
 	Dialog,
@@ -35,6 +39,9 @@ export function FlashCardsDialog({
 	const [showAnswer, setShowAnswer] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [showRatingSuccess, setShowRatingSuccess] = useState(false);
+	const [critique, setCritique] = useState<CritiqueResponse | null>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
+	const [isCritiqueLoading, setIsCritiqueLoading] = useState(false);
 
 	const handleRating = async (rating: Grade) => {
 		if (isSubmitting || !currentFlashcard) return;
@@ -57,13 +64,43 @@ export function FlashCardsDialog({
 		}
 	};
 
+	const handleGetCritique = async () => {
+		if (!currentFlashcard || !userAnswer.trim() || isCritiqueLoading) return;
+
+		setIsCritiqueLoading(true);
+		try {
+			const response = await getCritique(currentFlashcard, userAnswer);
+			if (response.success && response.data) {
+				setCritique(response.data as CritiqueResponse);
+			} else {
+				console.error("Failed to get critique:", response.error);
+			}
+		} catch (error) {
+			console.error("Error getting critique:", error);
+		} finally {
+			setIsCritiqueLoading(false);
+		}
+	};
+
+	const handleKeyPress = async (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter" && userAnswer.trim()) {
+			e.preventDefault();
+			await handleGetCritique();
+		}
+	};
+
 	useEffect(() => {
 		if (flashcards.length > 0) {
-			const storedIndex = localStorage.getItem(`flashcardIndex_${folderName}`);
-			if (storedIndex) {
-				const parsedIndex = parseInt(storedIndex, 10);
-				if (!isNaN(parsedIndex) && parsedIndex < flashcards.length) {
-					setCurrentIndex(parsedIndex);
+			// Load stored index on initial load
+			if (flashcards && folderName) {
+				const storedIndex = localStorage.getItem(
+					`flashcardIndex_${folderName}`,
+				);
+				if (storedIndex) {
+					const parsedIndex = parseInt(storedIndex, 10);
+					if (!isNaN(parsedIndex) && parsedIndex < flashcards.length) {
+						setCurrentIndex(parsedIndex);
+					}
 				}
 			}
 		}
@@ -71,19 +108,31 @@ export function FlashCardsDialog({
 
 	useEffect(() => {
 		if (flashcards.length > 0) {
+			// Save current index to localStorage
 			localStorage.setItem(
 				`flashcardIndex_${folderName}`,
 				currentIndex.toString(),
 			);
+
+			// Reset UI state when current index changes
+			setShowAnswer(false);
+			setUserAnswer("");
+			setCritique(null);
+			setIsCritiqueLoading(false);
+
+			// Focus the input field when the flashcard changes
+			setTimeout(() => {
+				inputRef.current?.focus();
+			}, 100);
 		}
 	}, [currentIndex, flashcards.length, folderName]);
 
 	useEffect(() => {
-		if (flashcards.length > 0) {
-			setShowAnswer(false);
-			setUserAnswer("");
+		// Clear critique when user changes their answer
+		if (critique) {
+			setCritique(null);
 		}
-	}, [flashcards]);
+	}, [userAnswer]);
 
 	const handleNext = () => {
 		if (flashcards.length > 0) {
@@ -121,11 +170,41 @@ export function FlashCardsDialog({
 						</h3>
 						<div className="relative">
 							<Input
-								placeholder="Type in your answer, and get feedback from the AI Tutor."
+								ref={inputRef}
+								placeholder="Type in your answer, and get feedback from our AI Tutor."
 								value={userAnswer}
 								onChange={(e) => setUserAnswer(e.target.value)}
+								onKeyPress={handleKeyPress}
 							/>
+							<p className="mt-1 text-xs text-gray-500">
+								Press Enter to submit your answer for feedback
+							</p>
 						</div>
+
+						{/* Display loader when fetching critique */}
+						{isCritiqueLoading && (
+							<div className="flex w-full justify-center py-6">
+								{/* <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div> */}
+								<Player
+									autoplay
+									loop={true}
+									src={bunnyloader}
+									style={{ height: "200px", width: "200px" }}
+								>
+									<Controls
+										visible={false}
+										buttons={["play", "repeat", "frame", "debug"]}
+									/>
+								</Player>
+							</div>
+						)}
+
+						{/* Display critique when available (not loading) */}
+						{!isCritiqueLoading && critique && (
+							<div className="w-full">
+								<CritiqueBox critiqueProps={critique} isLoading={false} />
+							</div>
+						)}
 
 						{showAnswer && (
 							<motion.div
@@ -140,84 +219,85 @@ export function FlashCardsDialog({
 							</motion.div>
 						)}
 
-						{showAnswer && practiceMode === PracticeMode.SPACED_REPETITION && (
-							<motion.div
-								className="relative mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4"
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -20 }}
-								transition={{
-									type: "spring",
-									stiffness: 100,
-									damping: 20,
-									delay: 0.2,
-								}}
-							>
-								{!showRatingSuccess ? (
-									<>
-										<Button
-											onClick={() => handleRating(Rating.Again)}
-											variant="outline"
-											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-										>
-											<X className="h-5 w-5 text-red-500" />
-											<span className="font-medium">Didn't Know</span>
-											<span className="text-muted-foreground text-xs">
-												I didn't know it or got it wrong.
-											</span>
-										</Button>
-										<Button
-											onClick={() => handleRating(Rating.Hard)}
-											variant="outline"
-											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-										>
-											<Flame className="h-5 w-5 text-orange-500" />
-											<span className="font-medium">Tricky</span>
-											<span className="text-muted-foreground text-xs">
-												I remembered, but it was really hard.
-											</span>
-										</Button>
-										<Button
-											onClick={() => handleRating(Rating.Good)}
-											variant="outline"
-											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-										>
-											<ThumbsUp className="h-5 w-5 text-green-500" />
-											<span className="font-medium">Got It</span>
-											<span className="text-muted-foreground text-xs">
-												I remembered with some effort.
-											</span>
-										</Button>
-										<Button
-											onClick={() => handleRating(Rating.Easy)}
-											variant="outline"
-											className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
-										>
-											<Zap className="h-5 w-5 text-blue-500" />
-											<span className="font-medium">Too Easy</span>
-											<span className="text-muted-foreground text-xs">
-												I remembered it instantly!
-											</span>
-										</Button>
-									</>
-								) : (
-									<div className="col-span-4 flex justify-center">
-										<Player
-											autoplay
-											loop={false}
-											src={successAnimation}
-											style={{ height: "100px", width: "100px" }}
-											speed={2.5}
-										>
-											<Controls
-												visible={false}
-												buttons={["play", "repeat", "frame", "debug"]}
-											/>
-										</Player>
-									</div>
-								)}
-							</motion.div>
-						)}
+						{((showAnswer && !isCritiqueLoading) || critique) &&
+							practiceMode === PracticeMode.SPACED_REPETITION && (
+								<motion.div
+									className="relative mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4"
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -20 }}
+									transition={{
+										type: "spring",
+										stiffness: 100,
+										damping: 20,
+										delay: 0.2,
+									}}
+								>
+									{!showRatingSuccess ? (
+										<>
+											<Button
+												onClick={() => handleRating(Rating.Again)}
+												variant="outline"
+												className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+											>
+												<X className="h-5 w-5 text-red-500" />
+												<span className="font-medium">Didn't Know</span>
+												<span className="text-muted-foreground text-xs">
+													I didn't know it or got it wrong.
+												</span>
+											</Button>
+											<Button
+												onClick={() => handleRating(Rating.Hard)}
+												variant="outline"
+												className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+											>
+												<Flame className="h-5 w-5 text-orange-500" />
+												<span className="font-medium">Tricky</span>
+												<span className="text-muted-foreground text-xs">
+													I remembered, but it was really hard.
+												</span>
+											</Button>
+											<Button
+												onClick={() => handleRating(Rating.Good)}
+												variant="outline"
+												className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+											>
+												<ThumbsUp className="h-5 w-5 text-green-500" />
+												<span className="font-medium">Got It</span>
+												<span className="text-muted-foreground text-xs">
+													I remembered with some effort.
+												</span>
+											</Button>
+											<Button
+												onClick={() => handleRating(Rating.Easy)}
+												variant="outline"
+												className="flex h-auto max-w-[120px] flex-col items-center gap-1 whitespace-normal break-words p-3 text-center"
+											>
+												<Zap className="h-5 w-5 text-blue-500" />
+												<span className="font-medium">Too Easy</span>
+												<span className="text-muted-foreground text-xs">
+													I remembered it instantly!
+												</span>
+											</Button>
+										</>
+									) : (
+										<div className="col-span-4 flex justify-center">
+											<Player
+												autoplay
+												loop={false}
+												src={successAnimation}
+												style={{ height: "100px", width: "100px" }}
+												speed={2.5}
+											>
+												<Controls
+													visible={false}
+													buttons={["play", "repeat", "frame", "debug"]}
+												/>
+											</Player>
+										</div>
+									)}
+								</motion.div>
+							)}
 
 						<div className="flex gap-2">
 							<Button
