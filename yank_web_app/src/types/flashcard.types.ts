@@ -35,47 +35,46 @@ export enum PracticeMode {
 	CHRONOLOGICAL = "chronological",
 }
 
-
 // this is just here for reference.
 export interface GeminiResponse {
-  candidates: {
-    content: {
-      parts: {
-        text: string;
-      }[];
-      role: string;
-    };
-    finishReason: string;
-    groundingMetadata: {
-      searchEntryPoint: {
-        renderedContent: string;
-      };
-      groundingChunks: {
-        web: {
-          uri: string;
-          title: string;
-        };
-      }[];
-      groundingSupports: {
-        segment: {
-          startIndex: number;
-          endIndex: number;
-          text: string;
-        };
-        groundingChunkIndices: number[];
-        confidenceScores: number[];
-      }[];
-      retrievalMetadata: Record<string, unknown>; // Placeholder for unknown metadata structure
-      webSearchQueries: string[];
-    };
-  }[];
+	candidates: {
+		content: {
+			parts: {
+				text: string;
+			}[];
+			role: string;
+		};
+		finishReason: string;
+		groundingMetadata: {
+			searchEntryPoint: {
+				renderedContent: string;
+			};
+			groundingChunks: {
+				web: {
+					uri: string;
+					title: string;
+				};
+			}[];
+			groundingSupports: {
+				segment: {
+					startIndex: number;
+					endIndex: number;
+					text: string;
+				};
+				groundingChunkIndices: number[];
+				confidenceScores: number[];
+			}[];
+			retrievalMetadata: Record<string, unknown>; // Placeholder for unknown metadata structure
+			webSearchQueries: string[];
+		};
+	}[];
 }
 
-export interface CritiqueResponse{
-    evaluation: string; // bucketed response [Correct, Wrong or Not Quite]
-    critique: {
-        correct_parts: string; // Correct aspects
-        incorrect_parts: string; // Incorrect aspects
-        corrected_answer: string; // Suggested correction or improvement
-    };
-};
+export interface CritiqueResponse {
+	evaluation: string; // bucketed response [Correct, Wrong or Not Quite]
+	critique: {
+		correct_parts: string; // Correct aspects
+		incorrect_parts: string; // Incorrect aspects
+		corrected_answer: string; // Suggested correction or improvement
+	};
+}
