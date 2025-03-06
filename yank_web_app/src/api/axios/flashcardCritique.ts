@@ -100,7 +100,7 @@ export async function getCritique(
 		let parsedText: CritiqueResponse;
 		try {
 			parsedText = JSON.parse(jsonString);
-		} catch (e) {
+		}catch{
 			return {
 				success: false,
 				error: "Invalid JSON response",
