@@ -4,6 +4,8 @@ import { DataTable } from "@/components/FoldersBox/data-table";
 import supabaseClient from "@/api/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import { type User } from "@supabase/supabase-js";
+import { Button } from "@/components/ui/button";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 interface FolderBoxProps {
 	user: User | null;
@@ -36,6 +38,16 @@ export default function FoldersBox(props: FolderBoxProps) {
 
 	return (
 		<div className="container mx-auto py-10">
+			<div className="mb-4 flex justify-end">
+				<Button
+					onClick={refetchFolders}
+					variant="outline"
+					size="icon"
+					className="hover:bg-gray-100"
+				>
+					<ArrowPathIcon className="h-4 w-4 text-purple-800" />
+				</Button>
+			</div>
 			<DataTable columns={columns(props.user, refetchFolders)} data={data} />
 		</div>
 	);
