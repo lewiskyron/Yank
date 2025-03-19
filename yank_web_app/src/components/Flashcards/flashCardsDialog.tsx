@@ -18,6 +18,7 @@ import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import { getCritique } from "@/api/axios/flashcardCritique";
 import { CritiqueResponse } from "@/types/flashcard.types";
 import { CritiqueBox } from "./critiqueBox";
+import { trackDailyReview } from "@/api/supabase/statsAdapter";
 
 import {
 	Dialog,
@@ -66,11 +67,16 @@ export function FlashCardsDialog({
 
 	const handleGetCritique = async () => {
 		if (!currentFlashcard || !userAnswer.trim() || isCritiqueLoading) return;
-
 		setIsCritiqueLoading(true);
 		try {
 			const response = await getCritique(currentFlashcard, userAnswer);
 			if (response.success && response.data) {
+				if (critique == null) {
+					trackDailyReview(
+						flashcards[currentIndex].user_id,
+						flashcards[currentIndex].folder_id,
+					);
+				}
 				setCritique(response.data as CritiqueResponse);
 			} else {
 				console.error("Failed to get critique:", response.error);
@@ -140,6 +146,15 @@ export function FlashCardsDialog({
 			setUserAnswer("");
 			setCurrentIndex((prev) => (prev + 1) % flashcards.length);
 		}
+	};
+
+	const handleshowAnswer = () => {
+		const userId = flashcards[currentIndex].user_id;
+		const folderId = flashcards[currentIndex].folder_id;
+		if (!showAnswer) {
+			trackDailyReview(userId, folderId);
+		}
+		setShowAnswer(true);
 	};
 
 	const currentFlashcard =
@@ -301,7 +316,7 @@ export function FlashCardsDialog({
 
 						<div className="flex gap-2">
 							<Button
-								onClick={() => setShowAnswer(true)}
+								onClick={handleshowAnswer}
 								size="lg"
 								className="w-full gap-2 bg-blue-600 hover:bg-blue-700"
 							>

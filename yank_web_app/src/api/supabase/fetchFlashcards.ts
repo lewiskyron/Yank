@@ -48,7 +48,9 @@ const parseFlashcardText = (
 };
 
 // Pure function to transform a flashcard
-const transformFlashcard = (flashcard: DbFlashcard): TransformedFlashcard => {
+export const transformFlashcard = (
+	flashcard: DbFlashcard,
+): TransformedFlashcard => {
 	const { question, answer } = parseFlashcardText(flashcard.text);
 	return {
 		...flashcard,

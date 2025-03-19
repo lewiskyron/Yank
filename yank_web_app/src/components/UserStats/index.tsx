@@ -1,11 +1,35 @@
 "use client";
-import Lottie from "lottie-react";
-import constructionAnimation from "@/app/My-stats/construction-lottie.json";
+import CardsDueToday from "@/components/UserStats/cards-due";
+import LearningGoalCard from "./learning-goal-card";
+import ActivityChartCard from "./activity-chart-card";
+import StreakCalendarCard from "./streak-calendar-card";
+import { QuoteCard } from "./quote-card";
+import type User from "@supabase/supabase-js";
 
-export default function StatsContent() {
+interface StatsContentProps {
+	user: User.User | null;
+}
+
+export default function StatsContent({ user }: StatsContentProps) {
 	return (
-		<div className="flex flex-col items-center justify-center space-y-8 p-8">
-			<div className="max-w-md">
+		<>
+			<div className="grid grid-cols-2 gap-6 px-24 py-6">
+				<div className="flex flex-col space-y-6">
+					<LearningGoalCard user={user} />
+					<ActivityChartCard user={user} />
+					<QuoteCard />
+				</div>
+				<div className="flex flex-col space-y-6">
+					<CardsDueToday user={user} />
+					<StreakCalendarCard user={user} />
+				</div>
+			</div>
+		</>
+	);
+}
+
+{
+	/* <div className="max-w-md">
 				<Lottie
 					animationData={constructionAnimation}
 					loop={true}
@@ -22,7 +46,5 @@ export default function StatsContent() {
 					you'll be able to track your progress, identify areas for improvement,
 					and supercharge your learning journey.
 				</p>
-			</div>
-		</div>
-	);
+			</div> */
 }
