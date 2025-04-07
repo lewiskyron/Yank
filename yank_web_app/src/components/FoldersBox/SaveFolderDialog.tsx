@@ -34,7 +34,7 @@ export default function SaveFolderDialog({
 		if (error) {
 			toast.error("Failed to save folder.");
 		} else {
-			toast.success("Flashcard saved successfully!");
+			toast.success("Folder saved successfully!");
 			setTimeout(() => {
 				toast.dismiss();
 			}, 3000);
