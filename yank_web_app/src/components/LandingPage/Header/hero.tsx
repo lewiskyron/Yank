@@ -15,7 +15,7 @@ export function Hero() {
 				{/* Product Hunt Badge - Positioned in top left */}
 				<div className="absolute left-4 top-4 z-10">
 					<a
-						href="https://www.producthunt.com/posts/yank-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-yank&#0045;2"
+						href="https://www.producthunt.com/posts/yank-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-yank&#0045;2"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
